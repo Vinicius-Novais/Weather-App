@@ -38,3 +38,53 @@
   font-weight: 700;
   src: url("/assets/fonts/dm-sans-v17-latin-700.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
 }
+
+/* bricolage-grotesque-700 - latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: "Bricolage Grotesque";
+  font-style: normal;
+  font-weight: 700;
+  src: url("/assets/fonts/bricolage-grotesque-v9-latin-700.woff2")
+    format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+:root {
+  --c-neutral-900: hsl(243, 96%, 9%);
+  --c-neutral-800: hsl(243, 27%, 20%);
+  --c-neutral-700: hsl(243, 23%, 24%);
+  --c-neutral-600: hsl(243, 23%, 30%);
+  --c-neutral-300: hsl(240, 6%, 70%);
+  --c-neutral-200: hsl(250, 6%, 84%);
+  --c-neutral-0: hsl(0, 0%, 100%);
+
+  --c-orange-500: hsl(28, 100%, 52%);
+
+  --c-blue-700: hsl(248, 70%, 36%);
+  --c-blue-500: hsl(233, 67%, 56%);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+img {
+  max-width: 100%;
+}
+
+body {
+  font-family: "DM Sans", Arial, Helvetica, sans-serif;
+  font-weight: 500;
+}
+
+h1,
+h2,
+h3 {
+  font-family: "Bricolage Grotesque", Arial, Helvetica, sans-serif;
+}

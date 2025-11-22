@@ -45,8 +45,7 @@
   font-family: "Bricolage Grotesque";
   font-style: normal;
   font-weight: 700;
-  src: url("/assets/fonts/bricolage-grotesque-v9-latin-700.woff2")
-    format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+  src: url("/assets/fonts/bricolage-grotesque-v9-latin-700.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
 }
 
 :root {
@@ -117,6 +116,7 @@ img {
 }
 
 body {
+  background-color: var(--color-main-bg);
   font-family: "DM Sans", Arial, Helvetica, sans-serif;
   font-weight: 500;
 }

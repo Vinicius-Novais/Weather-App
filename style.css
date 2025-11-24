@@ -116,7 +116,6 @@ img {
 }
 
 body {
-  background-color: var(--color-main-bg);
   font-family: "DM Sans", Arial, Helvetica, sans-serif;
   font-weight: 500;
 }

@@ -8,10 +8,11 @@
     <title>Weather app</title>
   </head>
   <body>
+    <a href="#main" class="visually-hidden">Skip to main content</a>
     <header class="header wrapper">
       <div class="header__content">
         <a class="header__homelink" href="/">
-          <img class="logo" src="/assets/images/logo.svg" alt="logo" />
+          <img class="logo" src="/assets/images/logo.svg" alt="Weather now home" width="197" height="40" />
         </a>
         <select class="dropdown header__dropdown" id="ddlUnits" name="units">
           <option value="Switch-to-Imperial">Switch to Imperial</option>
@@ -32,27 +33,54 @@
         </select>
       </div>
     </header>
-    <main class="main wrapper">
+    <main id="main" class="main wrapper">
       <section class="hero">
         <div class="hero__content">
           <h1 class="hero__tittle">How's the sky looking today?</h1>
           <div class="hero__search">
-            <input class="hero__textbox" placeholder="Search for a place..." type="text" class="main-input" id="mainInput" />
+            <input class="hero__textbox" placeholder="Search for a place..." type="text" class="search" id="search" />
             <button class="hero__button" type="submit">Search</button>
           </div>
         </div>
       </section>
       <section class="current">
-        <div class="current-weather-card">
-          <h2 id="city" class="city"></h2>
-          <span id="date" class="date"></span>
-          <span id="temp" class="temperature"></span>
+        <h2 class="visually-hidden">Current Location Temperature</h2>
+
+        <div class="current__weather">
+          <div class="current__location">
+            <div class="current__city">Berlin, Germany</div>
+            <div class="current__date">Tuesday, Aug 5, 2025</div>
+          </div>
+          <div class="current__icon">
+            <img src="assets/images/icon-sunny.webp" alt="" width="320" height="320" />
+          </div>
+          <div class="current__temp"><span>20</span>&deg;</div>
         </div>
-        <div class="weather-details"></div>
+
+        <div class="current__conditions">
+          <div class="current__condition">
+            <p class="current__condition-tittle">Feels Like</p>
+            <p id="feelsLike" class="current__codition-value">18&deg;</p>
+          </div>
+          <div class="current__condition">
+            <p class="current__condition-tittle">Humidity</p>
+            <p id="humidity" class="current__codition-value">46%</p>
+          </div>
+          <div class="current__condition">
+            <p class="current__condition-tittle">Wind</p>
+            <p id="wind" class="current__codition-value">14 km/h</p>
+          </div>
+          <div class="current__condition">
+            <p class="current__condition-tittle">Precipitation</p>
+            <p id="precipitation" class="current__codition-value">0 mm</p>
+          </div>
+        </div>
       </section>
       <section class="daily">
-        <div class="df-header"><h5 class="daily-forecast-tittle">Daily Forecast</h5></div>
-        <div class="df-cards">
+        <div class="daily__header">
+          <h2 class="daily__tittle">Daily Forecast</h2>
+        </div>
+        <div class="daily__cards">
           <div class="df-card"><span class="day">Tue</span><span class="max-temp"></span><span class="min-temp"></span></div>
           <div class="df-card"><span class="day">Wed</span><span class="max-temp"></span><span class="min-temp"></span></div>
           <div class="df-card"><span class="day">Thu</span><span class="max-temp"></span><span class="min-temp"></span></div>

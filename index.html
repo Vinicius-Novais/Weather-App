@@ -77,6 +77,7 @@
         </div>
       </section>
       <section class="daily">
+        <h2 class="visually-hidden">Daily Forecast</h2>
         <div class="daily__header"><h2 class="daily__tittle">Daily Forecast</h2></div>
 
         <div class="daily__cards">
@@ -125,16 +126,16 @@
         </div>
       </section>
       <section class="hourly">
-        <div class="hf-header">
-          <h5 class="hf-tittle">Hourly Forecast</h5>
-          <select name="Days" id="ddlDays" class="dropdown hf-dropdown">
-            <option value="monday">Monday</option>
-            <option value="tuesday">Tuesday</option>
-            <option value="wednesday">Wednesday</option>
-            <option value="thursday">Thursday</option>
-            <option value="friday">Friday</option>
-            <option value="saturday">Saturday</option>
-            <option value="sunday">Sunday</option>
+        <div class="hourly__header">
+          <h2 class="hourly__title">Hourly Forecast</h2>
+          <select class="dropdown hourly__dropdown" name="Days" id="ddlDays">
+            <option class="hourly__day" value="monday">Monday</option>
+            <option class="hourly__day" value="tuesday">Tuesday</option>
+            <option class="hourly__day" value="wednesday">Wednesday</option>
+            <option class="hourly__day" value="thursday">Thursday</option>
+            <option class="hourly__day" value="friday">Friday</option>
+            <option class="hourly__day" value="saturday">Saturday</option>
+            <option class="hourly__day" value="sunday">Sunday</option>
           </select>
         </div>
         <div class="hf-cards">

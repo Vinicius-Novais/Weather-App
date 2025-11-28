@@ -36,7 +36,7 @@
     <main id="main" class="main wrapper">
       <section class="hero">
         <div class="hero__content">
-          <h1 class="hero__tittle">How's the sky looking today?</h1>
+          <h1 class="hero__title">How's the sky looking today?</h1>
           <div class="hero__search">
             <input class="hero__textbox" placeholder="Search for a place..." type="text" class="search" id="search" />
             <button class="hero__button" type="submit">Search</button>
@@ -59,26 +59,28 @@
 
         <div class="current__conditions">
           <div class="current__condition">
-            <p class="current__condition-tittle">Feels Like</p>
+            <p class="current__condition-title">Feels Like</p>
             <p id="feelsLike" class="current__codition-value">18&deg;</p>
           </div>
           <div class="current__condition">
-            <p class="current__condition-tittle">Humidity</p>
+            <p class="current__condition-title">Humidity</p>
             <p id="humidity" class="current__codition-value">46%</p>
           </div>
           <div class="current__condition">
-            <p class="current__condition-tittle">Wind</p>
+            <p class="current__condition-title">Wind</p>
             <p id="wind" class="current__codition-value">14 km/h</p>
           </div>
           <div class="current__condition">
-            <p class="current__condition-tittle">Precipitation</p>
+            <p class="current__condition-title">Precipitation</p>
             <p id="precipitation" class="current__codition-value">0 mm</p>
           </div>
         </div>
       </section>
       <section class="daily">
         <h2 class="visually-hidden">Daily Forecast</h2>
-        <div class="daily__header"><h2 class="daily__tittle">Daily Forecast</h2></div>
+        <div class="daily__header">
+          <h2 class="section__title daily__title">Daily Forecast</h2>
+        </div>
 
         <div class="daily__cards">
           <div class="daily__card">
@@ -141,7 +143,7 @@
       </section>
       <section class="hourly">
         <div class="hourly__header">
-          <h2 class="hourly__title">Hourly Forecast</h2>
+          <h2 class="section__title hourly__title">Hourly Forecast</h2>
           <select class="dropdown hourly__dropdown" name="Days" id="ddlDays">
             <option class="hourly__day" value="monday">Monday</option>
             <option class="hourly__day" value="tuesday">Tuesday</option>
@@ -154,7 +156,42 @@
         </div>
         <div class="hourly__cards">
           <div class="hourly__card">
-            <img class="hourly__icon" src="/assets/images/icon-overcast.webp" alt="" />
+            <img class="hourly__icon" src="/assets/images/icon-overcast.webp" alt="" width="40" height="40" />
+            <p class="hourly__time">3 PM</p>
+            <p class="hourly__temp">20&deg;</p>
+          </div>
+          <div class="hourly__card">
+            <img class="hourly__icon" src="/assets/images/icon-overcast.webp" alt="" width="40" height="40" />
+            <p class="hourly__time">3 PM</p>
+            <p class="hourly__temp">20&deg;</p>
+          </div>
+          <div class="hourly__card">
+            <img class="hourly__icon" src="/assets/images/icon-overcast.webp" alt="" width="40" height="40" />
+            <p class="hourly__time">3 PM</p>
+            <p class="hourly__temp">20&deg;</p>
+          </div>
+          <div class="hourly__card">
+            <img class="hourly__icon" src="/assets/images/icon-overcast.webp" alt="" width="40" height="40" />
+            <p class="hourly__time">3 PM</p>
+            <p class="hourly__temp">20&deg;</p>
+          </div>
+          <div class="hourly__card">
+            <img class="hourly__icon" src="/assets/images/icon-overcast.webp" alt="" width="40" height="40" />
+            <p class="hourly__time">3 PM</p>
+            <p class="hourly__temp">20&deg;</p>
+          </div>
+          <div class="hourly__card">
+            <img class="hourly__icon" src="/assets/images/icon-overcast.webp" alt="" width="40" height="40" />
+            <p class="hourly__time">3 PM</p>
+            <p class="hourly__temp">20&deg;</p>
+          </div>
+          <div class="hourly__card">
+            <img class="hourly__icon" src="/assets/images/icon-overcast.webp" alt="" width="40" height="40" />
+            <p class="hourly__time">3 PM</p>
+            <p class="hourly__temp">20&deg;</p>
+          </div>
+          <div class="hourly__card">
+            <img class="hourly__icon" src="/assets/images/icon-overcast.webp" alt="" width="40" height="40" />
             <p class="hourly__time">3 PM</p>
             <p class="hourly__temp">20&deg;</p>
           </div>

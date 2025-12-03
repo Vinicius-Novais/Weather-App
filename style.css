@@ -102,6 +102,8 @@
     }
   }
 
+  /* mobile 16px, tablet 24px, desktop 1216px na coluna do meio limitar o width dessa coluna */
+
   *,
   *::before,
   *::after {
@@ -119,6 +121,8 @@
   body {
     font-family: "DM Sans", Arial, Helvetica, sans-serif;
     font-weight: 500;
+    background-color: var(--color-main-bg);
+    color: var(--color-text-light);
   }
 
   h1,
@@ -126,4 +130,19 @@
   h3 {
     font-family: "Bricolage Grotesque", Arial, Helvetica, sans-serif;
   }
+
+  .wrapper {
+    display: grid;
+    grid-template-columns: 1fr calc(100% - 32px) 1fr;
+
+    @media (width >= calc(700/16 * 1rem)) {
+    }
+
+    & > * {
+      grid-column: 2 / 3; /* Da coluna 2 até a 3 */
+    }
+  }
+}
+
+@layer components {
 }

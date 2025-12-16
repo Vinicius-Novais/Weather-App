@@ -8,28 +8,30 @@
     <title>Weather app</title>
   </head>
   <body>
-    <a href="#main" class="visually-hidden">Skip to main content</a>
+    <a href="#main" class="visually-hidden skip-link">Skip to main content</a>
     <header class="header wrapper">
-      <a class="header__homelink" href="/">
-        <img class="logo" src="/assets/images/logo.svg" alt="Weather now home" width="197" height="40" />
-      </a>
-      <select class="dropdown header__dropdown" id="ddlUnits" name="units">
-        <option value="Switch-to-Imperial">Switch to Imperial</option>
-        <optgroup label="Temperature">
-          <option value="C">Celsius (°C)</option>
-          <option value="F">Fahrenheit (°F)</option>
-        </optgroup>
-        <hr />
-        <optgroup label="Wind speed">
-          <option value="km/h">km/h</option>
-          <option value="mph">mph</option>
-        </optgroup>
-        <hr />
-        <optgroup label="Precipitation">
-          <option value="mm">Millimeters (mm)</option>
-          <option value="in">Inches (in)</option>
-        </optgroup>
-      </select>
+      <div class="header__wrapper">
+        <a class="header__homelink" href="/">
+          <img class="header__logo" src="/assets/images/logo.svg" alt="Weather now home" width="197" height="40" />
+        </a>
+        <select class="header__dropdown dropdown" id="ddlUnits" name="units">
+          <option value="Switch-to-Imperial">Switch to Imperial</option>
+          <optgroup label="Temperature">
+            <option value="C">Celsius (°C)</option>
+            <option value="F">Fahrenheit (°F)</option>
+          </optgroup>
+          <hr />
+          <optgroup label="Wind speed">
+            <option value="km/h">km/h</option>
+            <option value="mph">mph</option>
+          </optgroup>
+          <hr />
+          <optgroup label="Precipitation">
+            <option value="mm">Millimeters (mm)</option>
+            <option value="in">Inches (in)</option>
+          </optgroup>
+        </select>
+      </div>
     </header>
     <main id="main">
       <section class="hero wrapper">

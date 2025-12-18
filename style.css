@@ -264,4 +264,34 @@
       }
     }
   }
+
+  .current {
+    display: grid;
+    justify-items: center;
+    padding-block: 16px;
+
+    .current__weather {
+      display: grid;
+      justify-items: center;
+      width: 100%;
+      background-image: url("/assets/images/bg-today-small.svg");
+      background-repeat: no-repeat;
+
+      @media (width >= calc(700/16 *1rem)) {
+        background-image: url("/assets/images/bg-today-large.svg");
+      }
+    }
+
+    .current__conditions {
+    }
+
+    .current__condition {
+    }
+
+    .current__condition-title {
+    }
+
+    .current__condition-value {
+    }
+  }
 }

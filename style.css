@@ -223,20 +223,23 @@
     .hero__search {
       display: grid;
       gap: 12px 16px;
-
       width: 100%;
 
-      @media (width >= calc(1000/16 * 1rem)) {
+      @media (width >= calc(700/16 * 1rem)) {
+        width: auto;
         grid-auto-flow: column;
       }
     }
 
     .hero__textbox {
-      border-radius: 12px;
-      background-color: var(--c-neutral-800);
+      background-color: var(--color-panel-bg-dark);
       color: var(--color-text-med-light);
       font-size: var(--font-size-search);
-      padding: 1rem calc(100 / 16 * 1rem) 1rem calc(60 / 16 * 1rem);
+      padding: 16px 0 16px 60px;
+      border-radius: 12px;
+      background-image: url("/assets/images/icon-search.svg");
+      background-repeat: no-repeat;
+      background-position: 24px center;
 
       &:focus {
         outline: 1px solid var(--color-text-med-light);
@@ -244,8 +247,21 @@
     }
 
     .hero__button {
-      background-color: var(--c-blue-500);
+      background-color: var(--color-button-bg);
       color: var(--color-text-med-light);
+      font-size: var(--font-size-search);
+      border-radius: 12px;
+      padding-block: 16px;
+      transition: backgroud-color 120s ease-in-out;
+
+      @media (width >= calc(700 / 16 * 1rem)) {
+        max-width: 10rem;
+      }
+
+      &:hover {
+        background-color: var(--color-button-bg-hover);
+        cursor: pointer;
+      }
     }
   }
 }

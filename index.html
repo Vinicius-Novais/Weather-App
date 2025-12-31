@@ -33,7 +33,7 @@
         </select>
       </div>
     </header>
-    <main id="main">
+    <main id="main" class="main">
       <section class="hero wrapper">
         <div class="hero__content">
           <h1 class="hero__title">How's the sky looking today?</h1>
@@ -51,28 +51,28 @@
             <div class="current__city">Berlin, Germany</div>
             <div class="current__date">Tuesday, Aug 5, 2025</div>
           </div>
-          <div class="current__icon">
-            <img src="assets/images/icon-sunny.webp" alt="" width="320" height="320" />
+          <div class="current__iconTemp">
+            <img class="current__icon" src="assets/images/icon-sunny.webp" alt="" width="320" height="320" />
+            <div class="current__temp"><span>20</span>&deg;</div>
           </div>
-          <div class="current__temp"><span>20</span>&deg;</div>
         </div>
 
         <div class="current__conditions">
           <div class="current__condition">
             <p class="current__condition-title">Feels Like</p>
-            <p id="feelsLike" class="current__codition-value">18&deg;</p>
+            <p id="feelsLike" class="current__condition-value">18&deg;</p>
           </div>
           <div class="current__condition">
             <p class="current__condition-title">Humidity</p>
-            <p id="humidity" class="current__codition-value">46%</p>
+            <p id="humidity" class="current__condition-value">46%</p>
           </div>
           <div class="current__condition">
             <p class="current__condition-title">Wind</p>
-            <p id="wind" class="current__codition-value">14 km/h</p>
+            <p id="wind" class="current__condition-value">14 km/h</p>
           </div>
           <div class="current__condition">
             <p class="current__condition-title">Precipitation</p>
-            <p id="precipitation" class="current__codition-value">0 mm</p>
+            <p id="precipitation" class="current__condition-value">0 mm</p>
           </div>
         </div>
       </section>

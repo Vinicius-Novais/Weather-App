@@ -123,6 +123,7 @@
     font-weight: 500;
     background-color: var(--color-main-bg);
     color: var(--color-text-light);
+    line-height: 1.2;
   }
 
   input,
@@ -168,6 +169,11 @@
       width: auto;
       height: auto;
     }
+  }
+
+  .main {
+    display: grid;
+    gap: calc(32 / 16 * 1rem);
   }
 }
 
@@ -266,32 +272,93 @@
   }
 
   .current {
-    display: grid;
-    justify-items: center;
-    padding-block: 16px;
-
     .current__weather {
-      display: grid;
-      justify-items: center;
-      width: 100%;
+      display: flex;
+      flex-direction: column;
       background-image: url("/assets/images/bg-today-small.svg");
       background-repeat: no-repeat;
+      background-color: var(--c-blue-700);
+      background-size: cover;
+      background-position: center bottom;
+      padding-block: calc(40 / 16 * 1rem);
+      padding-inline: calc(25 / 16 * 1rem);
+      margin-block-end: calc(20 / 16 * 1rem);
+      gap: 16px;
+      border-radius: 20px;
+      overflow: clip;
 
       @media (width >= calc(700/16 *1rem)) {
         background-image: url("/assets/images/bg-today-large.svg");
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding-block: calc(83 / 16 * 1rem);
       }
     }
 
+    .current__location {
+      text-align: center;
+    }
+
+    .current__city {
+      font-size: var(--font-size-city);
+      font-weight: 700;
+      margin-block-end: calc(12 / 16 * 1rem);
+    }
+
+    .current__date {
+      font-size: var(--font-size-date);
+      color: var(--color-text-med-light);
+    }
+
+    .current__iconTemp {
+      display: flex;
+      align-self: center;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .current__icon {
+      height: auto;
+      width: 120px;
+    }
+
+    .current__temp {
+      font-size: var(--font-size-temp);
+      line-height: 1;
+      letter-spacing: -2%;
+      font-weight: 600;
+      font-style: italic;
+    }
+
     .current__conditions {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+
+      @media (width >= calc(700/16 * 1rem)) {
+        grid-template-columns: repeat(4, 1fr);
+      }
     }
 
     .current__condition {
+      display: flex;
+      flex-direction: column;
+      background-color: var(--color-panel-bg-dark);
+      border: 1px solid var(--color-panel-border);
+      padding: 20px;
+      border-radius: 12px;
+      gap: 40px;
     }
 
     .current__condition-title {
+      font-size: var(--font-size-panel-tittle);
+      color: var(--color-text-med-light);
     }
 
     .current__condition-value {
+      font-size: var(--font-size-panel-value);
+      font-weight: 300;
     }
   }
 }

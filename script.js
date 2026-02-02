@@ -7,36 +7,50 @@ const round = (value) => Math.round(value);
 
 // ============================= GEOLOCOCATION =======================================
 
-elements.heroButton.addEventListener("click", handleSearch);
+elements.heroButton.addEventListener("click", loadGeolocation);
 
 function buildGeolocationURL() {
-  const params = new URLSearchParams({ q: elements.heroTextBox.value, format: "jsonv2", limit: 1 });
+  const params = new URLSearchParams({
+    q: elements.heroTextBox.value,
+    format: "jsonv2",
+    limit: 1,
+  });
 
-  console.log(`https://nominatim.openstreetmap.org/search?${params}`);
   return `https://nominatim.openstreetmap.org/search?${params}`;
 }
 
 async function fetchGeolocation() {
-  const geolocationData = await fetch(buildGeolocationURL());
+  const geoData = await fetch(buildGeolocationURL());
 
-  if (!geolocationData.ok) {
-    throw new Error(`Erro HTTP ${geolocationData.status}`);
+  if (!geoData.ok) {
+    throw new Error(`Erro HTTP ${geoData.status}`);
   }
 
-  return geolocationData.json();
+  return geoData.json();
 }
 
-async function handleSearch() {
+async function loadGeolocation() {
   try {
-    const result = await fetchGeolocation();
-    console.log(result);
-    extractData(result);
+    const geoJson = await fetchGeolocation();
+    console.log(geoJson);
+    extractGeolocationData(geoJson);
   } catch (error) {
     console.error(`Erro na API: ${error.message} `);
-    // SHOW PAGE ERROR
+    showerror(error);
   }
 }
 
-async function extractData() {
-  const rawData = await fetchGeolocation();
+function showerror(error) {
+  console.log("ERRO: " + error.message);
 }
+
+async function extractGeolocationData(rawData) {
+  const lat = rawData[0].lat;
+  const lon = rawData[0].lon;
+
+  buildWeatherURL(lat, lon);
+}
+
+// =================================== WEATHER ========================================
+
+function buildWeatherURL() {}

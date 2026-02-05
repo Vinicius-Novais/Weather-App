@@ -56,26 +56,26 @@
             </div>
             <div class="current__iconTemp">
               <img class="current__icon" src="assets/images/icon-sunny.webp" alt="" width="320" height="320" />
-              <div class="current__temp"><span>20</span>&deg;</div>
+              <div class="current__temp" data-condition="temp"><span>20</span>&deg;</div>
             </div>
           </div>
 
           <div class="current__conditions">
             <div class="block current__condition">
               <p class="current__condition-title">Feels Like</p>
-              <p id="feelsLike" class="current__condition-value">18&deg;</p>
+              <p id="feelsLike" class="current__condition-value" data-condition="feelsLike">18&deg;</p>
             </div>
             <div class="block current__condition">
               <p class="current__condition-title">Humidity</p>
-              <p id="humidity" class="current__condition-value">46%</p>
+              <p id="humidity" class="current__condition-value" data-condition="humidity">46%</p>
             </div>
             <div class="block current__condition">
               <p class="current__condition-title">Wind</p>
-              <p id="wind" class="current__condition-value">14 km/h</p>
+              <p id="wind" class="current__condition-value" data-condition="wind">14 km/h</p>
             </div>
             <div class="block current__condition">
               <p class="current__condition-title">Precipitation</p>
-              <p id="precipitation" class="current__condition-value">0 mm</p>
+              <p id="precipitation" class="current__condition-value" data-condition="precipitation">0 mm</p>
             </div>
           </div>
         </section>
@@ -83,6 +83,14 @@
           <h2 class="section__title daily__title">Daily Forecast</h2>
 
           <div class="daily__cards">
+            <div class="block daily__card">
+              <p class="daily__day">Mon</p>
+              <img class="daily__icon" src="/assets/images/icon-fog.webp" alt="" width="320" height="320" />
+              <div class="daily__temps">
+                <p class="daily__max-temp">24&deg;</p>
+                <p class="daily__min-temp">15&deg;</p>
+              </div>
+            </div>
             <div class="block daily__card">
               <p class="daily__day">Tue</p>
               <img class="daily__icon" src="/assets/images/icon-rain.webp" alt="" width="320" height="320" />
@@ -129,14 +137,6 @@
               <div class="daily__temps">
                 <p class="daily__max-temp">25&deg;</p>
                 <p class="daily__min-temp">16&deg;</p>
-              </div>
-            </div>
-            <div class="block daily__card">
-              <p class="daily__day">Mon</p>
-              <img class="daily__icon" src="/assets/images/icon-fog.webp" alt="" width="320" height="320" />
-              <div class="daily__temps">
-                <p class="daily__max-temp">24&deg;</p>
-                <p class="daily__min-temp">15&deg;</p>
               </div>
             </div>
           </div>

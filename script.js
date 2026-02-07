@@ -123,5 +123,13 @@ function extractWeatherData(rawData) {
   currentElements.wind.textContent = currentData.wind + " km/h";
   currentElements.precipitation.textContent = currentData.precipitation + " mm";
 
-  const dailyData = {};
+  const data = new Date();
+
+  const arr = []
+
+rawData.daily.temperature_2m_max
+
+  const dailyData = {
+    mon: 
+  };
 }

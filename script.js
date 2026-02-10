@@ -123,13 +123,35 @@ function extractWeatherData(rawData) {
   currentElements.wind.textContent = currentData.wind + " km/h";
   currentElements.precipitation.textContent = currentData.precipitation + " mm";
 
-  const data = new Date();
+  const date = new Date();
 
-  const arr = []
+  // const API = ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"];
 
-rawData.daily.temperature_2m_max
+  const maxTemp = rawData.daily.temperature_2m_max;
 
-  const dailyData = {
-    mon: 
-  };
+  console.log(maxTemp);
+
+  const dailyData = {};
+
+  const daily = document.querySelector(".daily");
+
+  const daysOftheWeek = [
+    { 1: daily.querySelector('[data-day="mon"]') },
+    { 2: daily.querySelector('[data-day="tue"]') },
+    { 3: daily.querySelector('[data-day="wed"]') },
+    { 4: daily.querySelector('[data-day="thu"]') },
+    { 5: daily.querySelector('[data-day="fri"]') },
+    { 6: daily.querySelector('[data-day="sat"]') },
+    { 7: daily.querySelector('[data-day="sun"]') },
+  ];
+
+  console.log(daysOftheWeek[0]);
+
+  const arr = [];
+  for (let i = 0; i < rawData.daily.temperature_2m_max.length; i++) {
+    arr.push((date.getDay() + i) % 7);
+  }
+  console.log(arr);
+
+  daysOftheWeek.mon;
 }

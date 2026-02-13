@@ -15,6 +15,7 @@ function buildGeolocationURL() {
     q: elements.heroTextBox.value,
     format: "jsonv2",
     limit: 1,
+    addressdetails: 1,
   });
 
   return `https://nominatim.openstreetmap.org/search?${params}`;
@@ -53,11 +54,8 @@ function extractGeolocationData(rawData) {
   coordinates[0] = lat;
   coordinates[1] = lon;
 
-  // const placeElement = document.querySelector(".current__city");
-
-  // placeElement.textContent = place;
-  // console.log(coordinates);
   loadWeather();
+  updateLocationInfo(rawData);
 }
 
 // =================================== WEATHER ========================================
@@ -97,7 +95,26 @@ async function loadWeather() {
   }
 }
 
+function updateLocationInfo(rawData) {
+  const city = rawData[0].address.municipality;
+  const state = rawData[0].address.state;
+  const country = rawData[0].address.country;
+  const hamlet = rawData[0].address.hamlet;
+
+  console.log(city);
+  console.log(state);
+  console.log(country);
+
+  const location = document.querySelector(".current__city");
+
+  location.textContent = hamlet ? `${hamlet}, ${state}` : `${city}, ${state}`;
+
+  if (hamlet) {
+    return `${hamlet}, ${state}`;
+  }
+}
 function extractWeatherData(rawData) {
+  // ========================================= CURRENT SECTION ========================================
   const currentData = {
     temperature: round(rawData.current.temperature_2m),
     feelsLike: round(rawData.current.apparent_temperature),
@@ -123,35 +140,29 @@ function extractWeatherData(rawData) {
   currentElements.wind.textContent = currentData.wind + " km/h";
   currentElements.precipitation.textContent = currentData.precipitation + " mm";
 
-  const date = new Date();
+  //===================================== DAILY SECTION ============================================
 
-  // const API = ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"];
-
-  const maxTemp = rawData.daily.temperature_2m_max;
-
-  console.log(maxTemp);
-
-  const dailyData = {};
+  const today = new Date().getDay();
+  const maxTempApi = rawData.daily.temperature_2m_max;
+  const minTempApi = rawData.daily.temperature_2m_min;
 
   const daily = document.querySelector(".daily");
 
-  const daysOftheWeek = [
-    { 1: daily.querySelector('[data-day="mon"]') },
-    { 2: daily.querySelector('[data-day="tue"]') },
-    { 3: daily.querySelector('[data-day="wed"]') },
-    { 4: daily.querySelector('[data-day="thu"]') },
-    { 5: daily.querySelector('[data-day="fri"]') },
-    { 6: daily.querySelector('[data-day="sat"]') },
-    { 7: daily.querySelector('[data-day="sun"]') },
-  ];
+  const maxTempElements = daily.querySelectorAll("[data-maxTemp]");
 
-  console.log(daysOftheWeek[0]);
+  const minTempElements = daily.querySelectorAll("[data-minTemp]");
 
-  const arr = [];
-  for (let i = 0; i < rawData.daily.temperature_2m_max.length; i++) {
-    arr.push((date.getDay() + i) % 7);
+  const days = daily.querySelectorAll("[data-day]");
+
+  const daysArr = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+  for (let i = 0; i < 7; i++) {
+    const indexHTML = (today + i) % 7;
+
+    maxTempElements[i].textContent = Math.round(maxTempApi[i]) + "\u00B0";
+
+    minTempElements[i].textContent = Math.round(minTempApi[i]) + "\u00B0";
+
+    days[i].textContent = daysArr[indexHTML];
   }
-  console.log(arr);
-
-  daysOftheWeek.mon;
 }

@@ -2,8 +2,52 @@ const elements = {
   heroTextBox: document.querySelector(".hero__textbox"),
   heroButton: document.querySelector(".hero__button"),
 };
-const coordinates = [];
+const coordinates = [-23.5506507, -46.6333824];
 const round = (value) => Math.round(value);
+
+init();
+
+async function init() {
+  const weatherJson = await fetchWeatherAPI();
+  setDate();
+  isDay();
+
+  function setDate() {
+    const date = new Date();
+
+    const dayList = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    const monthList = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+    const year = date.getFullYear();
+    const month = monthList[date.getMonth()];
+    const day = dayList[date.getDay()];
+
+    const currentDate = document.querySelector(".current__date");
+
+    currentDate.textContent = `${day}, ${month} ${date.getDate()}, ${year}`;
+  }
+
+  // function isDay() {
+  //   const hour = new Date().getHours();
+  //   const imgElement = document.querySelector(".current__icon");
+
+  //   if (hour >= 18 || hour < 6) {
+  //     imgElement.src = "assets/images/moon-svgrepo-com.svg";
+  //   }
+  // }
+
+  document.querySelector('[data-condition="temp"]').textContent = round(weatherJson.current.temperature_2m) + "\u00B0";
+
+  async function isDay() {
+    const imgElement = document.querySelector(".current__icon");
+
+    if (weatherJson.is_day) {
+      imgElement.src = "assets/images/sunny.svg";
+    } else {
+      imgElement.src = "assets/images/moon-svgrepo-com.svg";
+    }
+  }
+}
 
 // ============================= GEOLOCOCATION =======================================
 
@@ -88,7 +132,7 @@ async function loadWeather() {
   try {
     const weatherJson = await fetchWeatherAPI();
 
-    extractWeatherData(weatherJson);
+    updateWeatherUI(weatherJson);
   } catch (error) {
     console.log(error);
     showerror();
@@ -96,25 +140,58 @@ async function loadWeather() {
 }
 
 function updateLocationInfo(rawData) {
-  const city = rawData[0].address.municipality;
-  const state = rawData[0].address.state;
-  const country = rawData[0].address.country;
-  const hamlet = rawData[0].address.hamlet;
+  const addressData = rawData[0].address;
 
-  console.log(city);
-  console.log(state);
-  console.log(country);
+  const addressType = rawData[0].addresstype;
+  const state = addressData.state;
+  const country = addressData.country;
+  const place = rawData[0].address[addressType];
+
+  console.log("Has state: " + Object.hasOwn(addressData, "state"));
+  console.log("Has country: " + Object.hasOwn(addressData, "country"));
 
   const location = document.querySelector(".current__city");
 
-  location.textContent = hamlet ? `${hamlet}, ${state}` : `${city}, ${state}`;
+  // if (Object.hasOwn(addressData, "state")) {
 
-  if (hamlet) {
-    return `${hamlet}, ${state}`;
-  }
+  //   location.textContent = place + ", " + state;
+
+  //   if(addressData.state === addressData.country)  {
+
+  //   }
+  // } else if (Object.hasOwn(addressData, "country")) {
+  //   location.textContent = place + ", " + country;
+  // }
+
+  location.textContent = addressType === "state" ? `${place} , ${country}` : `${place} , ${state}`;
 }
-function extractWeatherData(rawData) {
+
+function updateWeatherUI(rawData) {
   // ========================================= CURRENT SECTION ========================================
+  const currentData = formatCurrentData(rawData);
+  renderCurrentData(currentData);
+  //===================================== DAILY SECTION ============================================
+  renderDailyData(rawData);
+  // ===================================== HOURLY SECTION ============================================
+
+  // const currentHour = new Date().getHours();
+  // const hourlyData = rawData.hourly.temperature_2m;
+  // const weatherCode = rawData.hourly.weather_code;
+
+  // const hourly = [];
+
+  // for (i = 0; i <= 24; i++) {
+  //   hourly[i] = hourlyData[i + currentHour];
+  // }
+
+  // console.log(currentHour);
+  // console.log(hourlyData);
+  // console.log(hourly);
+
+  renderHourlyData(rawData);
+}
+
+function formatCurrentData(rawData) {
   const currentData = {
     temperature: round(rawData.current.temperature_2m),
     feelsLike: round(rawData.current.apparent_temperature),
@@ -123,7 +200,10 @@ function extractWeatherData(rawData) {
     precipitation: round(rawData.current.precipitation),
     isDay: rawData.current.is_day,
   };
+  return currentData;
+}
 
+function renderCurrentData(currentData) {
   const current = document.querySelector(".current");
 
   const currentElements = {
@@ -139,9 +219,9 @@ function extractWeatherData(rawData) {
   currentElements.humidity.textContent = currentData.humidity + "%";
   currentElements.wind.textContent = currentData.wind + " km/h";
   currentElements.precipitation.textContent = currentData.precipitation + " mm";
+}
 
-  //===================================== DAILY SECTION ============================================
-
+function renderDailyData(rawData) {
   const today = new Date().getDay();
   const maxTempApi = rawData.daily.temperature_2m_max;
   const minTempApi = rawData.daily.temperature_2m_min;
@@ -164,5 +244,30 @@ function extractWeatherData(rawData) {
     minTempElements[i].textContent = Math.round(minTempApi[i]) + "\u00B0";
 
     days[i].textContent = daysArr[indexHTML];
+  }
+}
+
+function renderHourlyData(rawData) {
+  const weatherCode = rawData.hourly.weather_code;
+  const hourlyData = rawData.hourly.temperature_2m;
+
+  const days = [
+    { day: " ", temp: [], code: [] },
+    { day: "tue", temp: [], code: [] },
+    { day: "wed", temp: [], code: [] },
+    { day: "thu", temp: [], code: [] },
+    { day: "fry", temp: [], code: [] },
+    { day: "sat", temp: [], code: [] },
+    { day: "sun", temp: [], code: [] },
+  ];
+
+  let startPosition = 0;
+  for (i = 0; i < 7; i++) {
+    for (j = 0; j < 24; j++) {
+      days[i].temp[j] = hourlyData[j + startPosition];
+      days[i].code[j] = weatherCode[j + startPosition];
+    }
+
+    startPosition = startPosition + 24;
   }
 }

@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="-20 0 240 240" role="img" aria-label="Lua 3D">
+  <defs>
+    <!-- Corpo principal da lua -->
+    <radialGradient id="moonBody" cx="38%" cy="32%" r="72%">
+      <stop offset="0%" stop-color="#EAF4FF"/>
+      <stop offset="40%" stop-color="#CFE3F6"/>
+      <stop offset="78%" stop-color="#9FBAD4"/>
+      <stop offset="100%" stop-color="#6F8AA6"/>
+    </radialGradient>
+
+    <!-- Sombra interna -->
+    <radialGradient id="moonShade" cx="70%" cy="75%" r="65%">
+      <stop offset="0%" stop-color="#2A3B4C" stop-opacity="0"/>
+      <stop offset="55%" stop-color="#2A3B4C" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#1B2A38" stop-opacity="0.32"/>
+    </radialGradient>
+
+    <!-- Brilho estilo glossy -->
+    <radialGradient id="spec" cx="32%" cy="26%" r="35%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.95"/>
+      <stop offset="40%" stop-color="#FFFFFF" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Crateras -->
+    <radialGradient id="crater" cx="35%" cy="30%" r="65%">
+      <stop offset="0%" stop-color="#89A3BC" stop-opacity="0.65"/>
+      <stop offset="60%" stop-color="#6F8AA6" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#4C667E" stop-opacity="0.45"/>
+    </radialGradient>
+
+    <!-- Máscara para formar lua crescente -->
+    <mask id="crescentMask">
+      <rect width="240" height="240" fill="#000"/>
+      <circle cx="120" cy="120" r="70" fill="#fff"/>
+      <circle cx="145" cy="105" r="65" fill="#000"/>
+    </mask>
+
+    <!-- Sombra suave -->
+    <filter id="softShadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="4" result="blur"/>
+      <feOffset dx="0" dy="3" result="off"/>
+      <feColorMatrix in="off" type="matrix"
+        values="0 0 0 0 0
+                0 0 0 0 0
+                0 0 0 0 0
+                0 0 0 0.25 0" result="shadow"/>
+      <feMerge>
+        <feMergeNode in="shadow"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <g filter="url(#softShadow)">
+    <!-- Corpo -->
+    <circle cx="120" cy="120" r="70" fill="url(#moonBody)" mask="url(#crescentMask)"/>
+    
+    <!-- Sombra interna -->
+    <circle cx="120" cy="120" r="70" fill="url(#moonShade)" mask="url(#crescentMask)"/>
+    
+    <!-- Brilho -->
+    <circle cx="100" cy="90" r="40" fill="url(#spec)" mask="url(#crescentMask)"/>
+
+    <!-- Crateras -->
+    <g mask="url(#crescentMask)" opacity="0.65">
+      <circle cx="105" cy="140" r="10" fill="url(#crater)"/>
+      <circle cx="125" cy="155" r="7" fill="url(#crater)"/>
+      <circle cx="95" cy="115" r="6" fill="url(#crater)"/>
+      <circle cx="130" cy="110" r="5" fill="url(#crater)"/>
+      <circle cx="150" cy="135" r="4" fill="url(#crater)"/>
+    </g>
+  </g>
+</svg>

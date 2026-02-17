@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="90" height="90" viewBox="0 0 120 120" role="img" aria-label="Sol">
+  <defs>
+    <!-- Corpo do sol (mais 3D) -->
+    <radialGradient id="sunBody" cx="38%" cy="30%" r="75%">
+      <stop offset="0%" stop-color="#FFF7B8"/>
+      <stop offset="38%" stop-color="#FFE36A"/>
+      <stop offset="72%" stop-color="#FFC21F"/>
+      <stop offset="100%" stop-color="#F08A00"/>
+    </radialGradient>
+
+    <!-- Brilho glossy -->
+    <radialGradient id="spec" cx="30%" cy="26%" r="40%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.95"/>
+      <stop offset="45%" stop-color="#FFFFFF" stop-opacity="0.30"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Glow externo suave -->
+    <radialGradient id="sunGlow" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="#FFD85A" stop-opacity="0.55"/>
+      <stop offset="55%" stop-color="#FFB400" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#FFB400" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Raios quadradinhos (estilo do primeiro) -->
+    <linearGradient id="rayFace" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FFF3A8"/>
+      <stop offset="55%" stop-color="#FFD045"/>
+      <stop offset="100%" stop-color="#FF9500"/>
+    </linearGradient>
+
+    <filter id="softShadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="1.6" result="b"/>
+      <feOffset dx="0" dy="1.2" result="o"/>
+      <feColorMatrix in="o" type="matrix"
+        values="0 0 0 0 0
+                0 0 0 0 0
+                0 0 0 0 0
+                0 0 0 0.24 0" result="s"/>
+      <feMerge>
+        <feMergeNode in="s"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <filter id="rayGlow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="1.2" result="g"/>
+      <feColorMatrix in="g" type="matrix"
+        values="1 0 0 0 0
+                0 1 0 0 0
+                0 0 1 0 0
+                0 0 0 0.30 0" result="gg"/>
+      <feMerge>
+        <feMergeNode in="gg"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Glow externo -->
+  <circle cx="60" cy="60" r="44" fill="url(#sunGlow)"/>
+
+  <!-- Raios quadradinhos (8) -->
+  <g filter="url(#rayGlow)" opacity="0.98">
+    <!-- topo -->
+    <rect x="57" y="12" width="6" height="10" rx="1.6" fill="url(#rayFace)"/>
+    <!-- topo-direita -->
+    <rect x="86" y="25" width="6" height="10" rx="1.6" transform="rotate(45 89 30)" fill="url(#rayFace)"/>
+    <!-- direita -->
+    <rect x="98" y="57" width="10" height="6" rx="1.6" fill="url(#rayFace)"/>
+    <!-- baixo-direita -->
+    <rect x="86" y="85" width="6" height="10" rx="1.6" transform="rotate(-45 89 90)" fill="url(#rayFace)"/>
+    <!-- baixo -->
+    <rect x="57" y="98" width="6" height="10" rx="1.6" fill="url(#rayFace)"/>
+    <!-- baixo-esquerda -->
+    <rect x="28" y="85" width="6" height="10" rx="1.6" transform="rotate(45 31 90)" fill="url(#rayFace)"/>
+    <!-- esquerda -->
+    <rect x="12" y="57" width="10" height="6" rx="1.6" fill="url(#rayFace)"/>
+    <!-- topo-esquerda -->
+    <rect x="28" y="25" width="6" height="10" rx="1.6" transform="rotate(-45 31 30)" fill="url(#rayFace)"/>
+  </g>
+
+  <!-- Corpo do sol -->
+  <g filter="url(#softShadow)">
+    <circle cx="60" cy="60" r="28" fill="url(#sunBody)"/>
+    <!-- brilho -->
+    <circle cx="52" cy="48" r="16" fill="url(#spec)"/>
+    <!-- sombreado interno sutil -->
+    <circle cx="68" cy="72" r="26" fill="#B35A00" opacity="0.10"/>
+  </g>
+</svg>

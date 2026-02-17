@@ -355,11 +355,15 @@
       align-self: center;
       align-items: center;
       gap: 20px;
+
+      &:has(> img[src=""]) {
+        display: none;
+      }
     }
 
     .current__icon {
       height: auto;
-      width: 120px;
+      width: 90px;
     }
 
     .current__temp {

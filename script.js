@@ -8,40 +8,42 @@ const round = (value) => Math.round(value);
 init();
 
 async function init() {
-  const weatherJson = await fetchWeatherAPI();
-  setDate();
-  isDay(weatherJson);
+  try {
+    const weatherJson = await fetchWeatherAPI();
+    const currentData = weatherJson.current;
 
-  function setDate() {
-    const date = new Date();
+    isDay(currentData);
+    setDate(weatherJson);
 
-    const dayList = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-    const monthList = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-
-    const year = date.getFullYear();
-    const month = monthList[date.getMonth()];
-    const day = dayList[date.getDay()];
-
-    const currentDate = document.querySelector(".current__date");
-
-    currentDate.textContent = `${day}, ${month} ${date.getDate()}, ${year}`;
+    // seta a tempertarura do current
+    document.querySelector('[data-condition="temp"]').textContent = round(weatherJson.current.temperature_2m) + "\u00B0";
+    // seta o nome da cidade default
+    document.querySelector(".current__city").textContent = "São Paulo, Brasil";
+  } catch (error) {
+    console.error(`Erro na API: ${error.message} `);
+    errorPage(error);
   }
-
-  // function isDay() {
-  //   const hour = new Date().getHours();
-  //   const imgElement = document.querySelector(".current__icon");
-
-  //   if (hour >= 18 || hour < 6) {
-  //     imgElement.src = "assets/images/moon-svgrepo-com.svg";
-  //   }
-  // }
-
-  document.querySelector('[data-condition="temp"]').textContent = round(weatherJson.current.temperature_2m) + "\u00B0";
 }
-function isDay(weatherJson) {
+
+function setDate(weatherJson) {
+  const now = new Date();
+  const currentDateElement = document.querySelector(".current__date");
+
+  const formattedDate = new Intl.DateTimeFormat("en-US", {
+    weekday: "long",
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+    timeZone: weatherJson.timezone,
+  }).format(now);
+
+  currentDateElement.textContent = formattedDate;
+}
+
+function isDay(currentData) {
   const imgElement = document.querySelector(".current__icon");
 
-  weatherJson.is_day ? (imgElement.src = "assets/images/sunny.svg") : (imgElement.src = "assets/images/moon-svgrepo-com.svg");
+  currentData.is_day ? (imgElement.src = "assets/images/sunny.svg") : (imgElement.src = "assets/images/moon-svgrepo-com.svg");
 }
 
 // ============================= GEOLOCOCATION =======================================
@@ -77,11 +79,11 @@ async function loadGeolocation() {
     extractGeolocationData(geoJson);
   } catch (error) {
     console.error(`Erro na API: ${error.message} `);
-    showerror(error);
+    errorPage(error);
   }
 }
 
-function showerror(error) {
+function errorPage(error) {
   console.log("ERRO: " + error.message);
 }
 
@@ -193,7 +195,7 @@ function formatCurrentData(rawData) {
     humidity: rawData.current.relative_humidity_2m,
     wind: round(rawData.current.wind_speed_10m),
     precipitation: round(rawData.current.precipitation),
-    isDay: rawData.current.is_day,
+    is_day: rawData.current.is_day,
   };
   return currentData;
 }

@@ -49,7 +49,6 @@ function isDay(currentData) {
 // ============================= GEOLOCOCATION =======================================
 
 elements.heroButton.addEventListener("click", loadGeolocation);
-// elements.heroButton.addEventListener("click", loadWeather);
 
 function buildGeolocationURL() {
   const params = new URLSearchParams({
@@ -196,6 +195,7 @@ function formatCurrentData(rawData) {
     wind: round(rawData.current.wind_speed_10m),
     precipitation: round(rawData.current.precipitation),
     is_day: rawData.current.is_day,
+    timezone: rawData.timezone,
   };
   return currentData;
 }
@@ -218,10 +218,25 @@ function renderCurrentData(currentData) {
   currentElements.precipitation.textContent = currentData.precipitation + " mm";
 
   isDay(currentData);
+  setDate(currentData);
 }
 
 function renderDailyData(rawData) {
-  const today = new Date().getDay();
+  const daysArr = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  const formattedDay = new Intl.DateTimeFormat("en-US", {
+    weekday: "short",
+    timeZone: rawData.timezone,
+  }).format(new Date());
+
+  let today;
+
+  for (i = 0; i < daysArr.length; i++) {
+    if (daysArr[i] === formattedDay) {
+      today = i;
+    }
+  }
+
+  console.log(today);
   const maxTempApi = rawData.daily.temperature_2m_max;
   const minTempApi = rawData.daily.temperature_2m_min;
 
@@ -232,8 +247,6 @@ function renderDailyData(rawData) {
   const minTempElements = daily.querySelectorAll("[data-minTemp]");
 
   const days = daily.querySelectorAll("[data-day]");
-
-  const daysArr = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
   for (let i = 0; i < 7; i++) {
     const indexHTML = (today + i) % 7;

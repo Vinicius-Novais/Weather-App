@@ -10,7 +10,7 @@ init();
 async function init() {
   const weatherJson = await fetchWeatherAPI();
   setDate();
-  isDay();
+  isDay(weatherJson);
 
   function setDate() {
     const date = new Date();
@@ -37,16 +37,11 @@ async function init() {
   // }
 
   document.querySelector('[data-condition="temp"]').textContent = round(weatherJson.current.temperature_2m) + "\u00B0";
+}
+function isDay(weatherJson) {
+  const imgElement = document.querySelector(".current__icon");
 
-  async function isDay() {
-    const imgElement = document.querySelector(".current__icon");
-
-    if (weatherJson.is_day) {
-      imgElement.src = "assets/images/sunny.svg";
-    } else {
-      imgElement.src = "assets/images/moon-svgrepo-com.svg";
-    }
-  }
+  weatherJson.is_day ? (imgElement.src = "assets/images/sunny.svg") : (imgElement.src = "assets/images/moon-svgrepo-com.svg");
 }
 
 // ============================= GEOLOCOCATION =======================================
@@ -219,6 +214,8 @@ function renderCurrentData(currentData) {
   currentElements.humidity.textContent = currentData.humidity + "%";
   currentElements.wind.textContent = currentData.wind + " km/h";
   currentElements.precipitation.textContent = currentData.precipitation + " mm";
+
+  isDay(currentData);
 }
 
 function renderDailyData(rawData) {

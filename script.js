@@ -314,6 +314,9 @@ function formatHourlyData(rawData) {
   // pegar os elementos do html
 
   // render UI
+
+  const select = document.getElementById("ddlDays");
+
   renderHourlyDropDown(days);
   renderHourlyTemp(days);
 
@@ -323,12 +326,58 @@ function formatHourlyData(rawData) {
     days.forEach((element, index) => {
       optionsElements[index].textContent = element.day;
     });
+
+    //sempre volta para o primeiro valor que será hoje
+    select.value = 0;
   }
+  console.log(select.value);
 
   function renderHourlyTemp(days) {
     const hourlyTemp = document.querySelectorAll(".hourly__temp");
-    days.forEach((element, index) => {
-      hourlyTemp[index].textContent = days[0].temp[index];
+
+    days[0].temp.forEach((element, index) => {
+      hourlyTemp[index].textContent = Math.round(element) + "\u00B0";
     });
+  }
+}
+
+function configureWeekOrder() {
+  // Formatar a data de acordo com timezone
+  const formattedDay = new Intl.DateTimeFormat("en-US", {
+    weekday: "long",
+    timeZone: rawData.timezone,
+  }).format(new Date());
+
+  // Encontrando que dia é hoje com o formattedDay
+  let today;
+
+  for (i = 0; i < daysArr.length; i++) {
+    if (daysArr[i] === formattedDay) {
+      today = i;
+    }
+  }
+
+  // Colocando os dias no array de objetos Days começando pelo dia de hoje de acordo com o timezone
+  for (let i = 0; i < daysArr.length; i++) {
+    const indexHTML = (today + i) % 7;
+
+    days[i].day = daysArr[indexHTML];
+  }
+}
+
+function organizeHourlyData() {
+  const weatherCode = rawData.hourly.weather_code;
+  const hourlyData = rawData.hourly.temperature_2m;
+
+  let currentDayStart = 0;
+  const HOURS_PER_DAY = 24;
+  for (i = 0; i < 7; i++) {
+    for (j = 0; j < 24; j++) {
+      days[i].temp[j] = hourlyData[j + currentDayStart];
+      days[i].code[j] = weatherCode[j + currentDayStart];
+    }
+
+    // adicionando 24 posições (0-23)
+    currentDayStart = currentDayStart + HOURS_PER_DAY;
   }
 }

@@ -170,20 +170,6 @@ function updateWeatherUI(rawData) {
   renderDailyData(rawData);
   // ===================================== HOURLY SECTION ============================================
   formatHourlyData(rawData);
-
-  // const currentHour = new Date().getHours();
-  // const hourlyData = rawData.hourly.temperature_2m;
-  // const weatherCode = rawData.hourly.weather_code;
-
-  // const hourly = [];
-
-  // for (i = 0; i <= 24; i++) {
-  //   hourly[i] = hourlyData[i + currentHour];
-  // }
-
-  // console.log(currentHour);
-  // console.log(hourlyData);
-  // console.log(hourly);
 }
 
 function formatCurrentData(rawData) {
@@ -341,7 +327,7 @@ function formatHourlyData(rawData) {
   }
 }
 
-function configureWeekOrder() {
+function configureWeekOrder(daysArr, days) {
   // Formatar a data de acordo com timezone
   const formattedDay = new Intl.DateTimeFormat("en-US", {
     weekday: "long",
@@ -365,19 +351,21 @@ function configureWeekOrder() {
   }
 }
 
-function organizeHourlyData() {
+function populateHourlyData(rawData, days) {
   const weatherCode = rawData.hourly.weather_code;
   const hourlyData = rawData.hourly.temperature_2m;
 
-  let currentDayStart = 0;
+  let dayStartIndex = 0;
   const HOURS_PER_DAY = 24;
   for (i = 0; i < 7; i++) {
     for (j = 0; j < 24; j++) {
-      days[i].temp[j] = hourlyData[j + currentDayStart];
-      days[i].code[j] = weatherCode[j + currentDayStart];
+      days[i].temp[j] = hourlyData[j + dayStartIndex];
+      days[i].code[j] = weatherCode[j + dayStartIndex];
     }
 
     // adicionando 24 posições (0-23)
-    currentDayStart = currentDayStart + HOURS_PER_DAY;
+    dayStartIndex = dayStartIndex + HOURS_PER_DAY;
   }
 }
+
+function renderHourlyData() {}

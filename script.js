@@ -169,7 +169,7 @@ function updateWeatherUI(rawData) {
   //===================================== DAILY SECTION ============================================
   renderDailyData(rawData);
   // ===================================== HOURLY SECTION ============================================
-  formatHourlyData(rawData);
+  updateHourlySection(rawData);
 }
 
 function formatCurrentData(rawData) {
@@ -243,13 +243,7 @@ function renderDailyData(rawData) {
   }
 }
 
-function formatHourlyData(rawData) {
-  // Formatar a data de acordo com timezone
-  const formattedDay = new Intl.DateTimeFormat("en-US", {
-    weekday: "long",
-    timeZone: rawData.timezone,
-  }).format(new Date());
-
+function updateHourlySection(rawData) {
   const daysArr = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
   const days = [
     { day: "", temp: [], code: [] },
@@ -261,70 +255,9 @@ function formatHourlyData(rawData) {
     { day: "", temp: [], code: [] },
   ];
 
-  // Encontrando que dia é hoje com o formattedDay
-  let today;
-
-  for (i = 0; i < daysArr.length; i++) {
-    if (daysArr[i] === formattedDay) {
-      today = i;
-    }
-  }
-
-  console.log(today);
-
-  // Colocando os dias no array de objetos Days começando pelo dia de hoje de acordo com o timezone
-  for (let i = 0; i < daysArr.length; i++) {
-    const indexHTML = (today + i) % 7;
-
-    days[i].day = daysArr[indexHTML];
-  }
-
-  // COlocando os dados da api nos respectivos lugares do array de objetos days
-  const weatherCode = rawData.hourly.weather_code;
-  const hourlyData = rawData.hourly.temperature_2m;
-
-  let currentDayStart = 0;
-  const HOURS_PER_DAY = 24;
-  for (i = 0; i < 7; i++) {
-    for (j = 0; j < 24; j++) {
-      days[i].temp[j] = hourlyData[j + currentDayStart];
-      days[i].code[j] = weatherCode[j + currentDayStart];
-    }
-
-    // adicionando 24 posições (0-23)
-    currentDayStart = currentDayStart + HOURS_PER_DAY;
-  }
-
-  console.log(days);
-
-  // pegar os elementos do html
-
-  // render UI
-
-  const select = document.getElementById("ddlDays");
-
-  renderHourlyDropDown(days);
-  renderHourlyTemp(days);
-
-  function renderHourlyDropDown(days) {
-    let optionsElements = document.querySelectorAll("#ddlDays  option");
-
-    days.forEach((element, index) => {
-      optionsElements[index].textContent = element.day;
-    });
-
-    //sempre volta para o primeiro valor que será hoje
-    select.value = 0;
-  }
-  console.log(select.value);
-
-  function renderHourlyTemp(days) {
-    const hourlyTemp = document.querySelectorAll(".hourly__temp");
-
-    days[0].temp.forEach((element, index) => {
-      hourlyTemp[index].textContent = Math.round(element) + "\u00B0";
-    });
-  }
+  configureWeekOrder(daysArr, days);
+  populateHourlyData(rawData, days);
+  renderHourlySection(days);
 }
 
 function configureWeekOrder(daysArr, days) {

@@ -368,4 +368,22 @@ function populateHourlyData(rawData, days) {
   }
 }
 
-function renderHourlyData() {}
+function renderHourlySection(days) {
+  const select = document.getElementById("ddlDays");
+  // Renderizando DropDown
+  let optionsElements = document.querySelectorAll("#ddlDays  option");
+
+  days.forEach((element, index) => {
+    optionsElements[index].textContent = element.day;
+  });
+
+  //sempre volta para o primeiro valor que será hoje
+  select.value = 0;
+
+  // Renderizando weatherCode e Temp
+  const hourlyTemp = document.querySelectorAll(".hourly__temp");
+
+  days[0].temp.forEach((element, index) => {
+    hourlyTemp[index].textContent = Math.round(element) + "\u00B0";
+  });
+}

@@ -243,14 +243,12 @@ function renderDailyData(rawData) {
   }
 }
 
-const state = {
-  days: [],
-};
+let days;
 
 function updateHourlySection(rawData) {
   const daysArr = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
-  state.days = [
+  days = [
     { day: "", temp: [], code: [] },
     { day: "", temp: [], code: [] },
     { day: "", temp: [], code: [] },
@@ -260,9 +258,9 @@ function updateHourlySection(rawData) {
     { day: "", temp: [], code: [] },
   ];
 
-  configureWeekOrder(rawData, state.days, daysArr);
-  populateHourlyData(rawData, state.days);
-  renderHourlySection(state.days);
+  configureWeekOrder(rawData, days, daysArr);
+  populateHourlyData(rawData, days);
+  renderHourlySection(days);
 
   // renderHSByChangeDDDay(days);
 }
@@ -332,7 +330,7 @@ function renderHourlySection(days) {
 document.addEventListener("change", callFunc);
 
 function callFunc() {
-  renderHSByChangeDDDay(state.days);
+  renderHSByChangeDDDay(days);
 }
 
 function renderHSByChangeDDDay(days) {

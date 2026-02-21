@@ -243,9 +243,14 @@ function renderDailyData(rawData) {
   }
 }
 
+const state = {
+  days: [],
+};
+
 function updateHourlySection(rawData) {
   const daysArr = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-  const days = [
+
+  state.days = [
     { day: "", temp: [], code: [] },
     { day: "", temp: [], code: [] },
     { day: "", temp: [], code: [] },
@@ -255,12 +260,14 @@ function updateHourlySection(rawData) {
     { day: "", temp: [], code: [] },
   ];
 
-  configureWeekOrder(daysArr, days);
-  populateHourlyData(rawData, days);
-  renderHourlySection(days);
+  configureWeekOrder(rawData, state.days, daysArr);
+  populateHourlyData(rawData, state.days);
+  renderHourlySection(state.days);
+
+  // renderHSByChangeDDDay(days);
 }
 
-function configureWeekOrder(daysArr, days) {
+function configureWeekOrder(rawData, days, daysArr) {
   // Formatar a data de acordo com timezone
   const formattedDay = new Intl.DateTimeFormat("en-US", {
     weekday: "long",
@@ -302,6 +309,10 @@ function populateHourlyData(rawData, days) {
 }
 
 function renderHourlySection(days) {
+  for (i = 0; i < days.length; i++) {
+    console.log(`renderHourlyDate: ${days[i].day}`);
+  }
+
   const select = document.getElementById("ddlDays");
   // Renderizando DropDown
   let optionsElements = document.querySelectorAll("#ddlDays  option");
@@ -310,13 +321,36 @@ function renderHourlySection(days) {
     optionsElements[index].textContent = element.day;
   });
 
-  //sempre volta para o primeiro valor que será hoje
-  select.value = 0;
-
-  // Renderizando weatherCode e Temp
+  // Renderizando Temp do dia inicial do array
   const hourlyTemp = document.querySelectorAll(".hourly__temp");
 
   days[0].temp.forEach((element, index) => {
     hourlyTemp[index].textContent = Math.round(element) + "\u00B0";
   });
+}
+
+document.addEventListener("change", callFunc);
+
+function callFunc() {
+  renderHSByChangeDDDay(state.days);
+}
+
+function renderHSByChangeDDDay(days) {
+  console.log(days);
+
+  const select = document.getElementById("ddlDays");
+  const hourlyTemp = document.querySelectorAll(".hourly__temp");
+
+  // organizando o value do selct com os days
+  for (let i = 0; i < 7; i++) {
+    select.options[i].value = days[i].day;
+  }
+
+  for (let i = 0; i < 7; i++) {
+    if (select.value === days[i].day) {
+      for (let j = 0; j < 24; j++) {
+        hourlyTemp[j].textContent = round(days[i].temp[j]) + "\u00B0";
+      }
+    }
+  }
 }

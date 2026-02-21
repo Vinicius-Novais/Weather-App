@@ -215,7 +215,7 @@ function renderDailyData(rawData) {
 
   let today;
 
-  for (i = 0; i < daysArr.length; i++) {
+  for (let i = 0; i < daysArr.length; i++) {
     if (daysArr[i] === formattedDay) {
       today = i;
     }
@@ -243,12 +243,12 @@ function renderDailyData(rawData) {
   }
 }
 
-let days;
+let hourlyData;
 
 function updateHourlySection(rawData) {
   const daysArr = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
-  days = [
+  hourlyData = [
     { day: "", temp: [], code: [] },
     { day: "", temp: [], code: [] },
     { day: "", temp: [], code: [] },
@@ -258,14 +258,12 @@ function updateHourlySection(rawData) {
     { day: "", temp: [], code: [] },
   ];
 
-  configureWeekOrder(rawData, days, daysArr);
-  populateHourlyData(rawData, days);
-  renderHourlySection(days);
-
-  // renderHSByChangeDDDay(days);
+  configureWeekOrder(rawData, hourlyData, daysArr);
+  populateHourlyData(rawData, hourlyData);
+  renderHourlySection(hourlyData);
 }
 
-function configureWeekOrder(rawData, days, daysArr) {
+function configureWeekOrder(rawData, hourlyData, daysArr) {
   // Formatar a data de acordo com timezone
   const formattedDay = new Intl.DateTimeFormat("en-US", {
     weekday: "long",
@@ -275,7 +273,7 @@ function configureWeekOrder(rawData, days, daysArr) {
   // Encontrando que dia é hoje com o formattedDay
   let today;
 
-  for (i = 0; i < daysArr.length; i++) {
+  for (let i = 0; i < daysArr.length; i++) {
     if (daysArr[i] === formattedDay) {
       today = i;
     }
@@ -285,20 +283,20 @@ function configureWeekOrder(rawData, days, daysArr) {
   for (let i = 0; i < daysArr.length; i++) {
     const indexHTML = (today + i) % 7;
 
-    days[i].day = daysArr[indexHTML];
+    hourlyData[i].day = daysArr[indexHTML];
   }
 }
 
-function populateHourlyData(rawData, days) {
-  const weatherCode = rawData.hourly.weather_code;
-  const hourlyData = rawData.hourly.temperature_2m;
+function populateHourlyData(rawData, hourlyData) {
+  const hourlyWeatherCode = rawData.hourly.weather_code;
+  const hourlyTemp = rawData.hourly.temperature_2m;
 
   let dayStartIndex = 0;
   const HOURS_PER_DAY = 24;
-  for (i = 0; i < 7; i++) {
-    for (j = 0; j < 24; j++) {
-      days[i].temp[j] = hourlyData[j + dayStartIndex];
-      days[i].code[j] = weatherCode[j + dayStartIndex];
+  for (let i = 0; i < 7; i++) {
+    for (let j = 0; j < 24; j++) {
+      hourlyData[i].temp[j] = hourlyTemp[j + dayStartIndex];
+      hourlyData[i].code[j] = hourlyWeatherCode[j + dayStartIndex];
     }
 
     // adicionando 24 posições (0-23)
@@ -306,23 +304,23 @@ function populateHourlyData(rawData, days) {
   }
 }
 
-function renderHourlySection(days) {
-  for (i = 0; i < days.length; i++) {
-    console.log(`renderHourlyDate: ${days[i].day}`);
+function renderHourlySection(hourlyData) {
+  for (let i = 0; i < hourlyData.length; i++) {
+    console.log(`renderHourlyDate: ${hourlyData[i].day}`);
   }
 
   const select = document.getElementById("ddlDays");
   // Renderizando DropDown
   let optionsElements = document.querySelectorAll("#ddlDays  option");
 
-  days.forEach((element, index) => {
+  hourlyData.forEach((element, index) => {
     optionsElements[index].textContent = element.day;
   });
 
   // Renderizando Temp do dia inicial do array
   const hourlyTemp = document.querySelectorAll(".hourly__temp");
 
-  days[0].temp.forEach((element, index) => {
+  hourlyData[0].temp.forEach((element, index) => {
     hourlyTemp[index].textContent = Math.round(element) + "\u00B0";
   });
 }
@@ -330,24 +328,24 @@ function renderHourlySection(days) {
 document.addEventListener("change", callFunc);
 
 function callFunc() {
-  renderHSByChangeDDDay(days);
+  renderHSByChangeDDDay(hourlyData);
 }
 
-function renderHSByChangeDDDay(days) {
-  console.log(days);
+function renderHSByChangeDDDay(hourlyData) {
+  console.log(hourlyData);
 
   const select = document.getElementById("ddlDays");
   const hourlyTemp = document.querySelectorAll(".hourly__temp");
 
   // organizando o value do selct com os days
   for (let i = 0; i < 7; i++) {
-    select.options[i].value = days[i].day;
+    select.options[i].value = hourlyData[i].day;
   }
 
   for (let i = 0; i < 7; i++) {
-    if (select.value === days[i].day) {
+    if (select.value === hourlyData[i].day) {
       for (let j = 0; j < 24; j++) {
-        hourlyTemp[j].textContent = round(days[i].temp[j]) + "\u00B0";
+        hourlyTemp[j].textContent = round(hourlyData[i].temp[j]) + "\u00B0";
       }
     }
   }

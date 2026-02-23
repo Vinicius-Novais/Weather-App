@@ -5,6 +5,19 @@ const elements = {
 const coordinates = [-23.5506507, -46.6333824];
 const round = (value) => Math.round(value);
 
+const icons = [
+  { weather: "/assets/images/icon-sunny.webp", codes: [0, 1] },
+  { weather: "/assets/images/icon-partly-cloudy.webp", codes: [2] },
+  { weather: "/assets/images/icon-overcast.webp", codes: [3] },
+  { weather: "/assets/images/icon-fog.webp", codes: [45, 48] },
+  { weather: "/assets/images/icon-drizzle.webp", codes: [51, 53, 55] },
+  { weather: "/assets/images/icon-rain.webp", codes: [61, 63, 65, 66, 67, 80, 81, 82] },
+  { weather: "/assets/images/icon-snow.webp", codes: [71, 73, 75, 77, 85, 86] },
+  { weather: "/assets/images/icon-storm.webp", codes: [95, 96, 99] },
+];
+
+const weatherGroups = {};
+
 init();
 
 async function init() {
@@ -221,8 +234,8 @@ function renderDailyData(rawData) {
     }
   }
 
-  const maxTempApi = rawData.daily.temperature_2m_max;
-  const minTempApi = rawData.daily.temperature_2m_min;
+  const maxTempAPI = rawData.daily.temperature_2m_max;
+  const minTempAPI = rawData.daily.temperature_2m_min;
 
   const daily = document.querySelector(".daily");
 
@@ -230,40 +243,64 @@ function renderDailyData(rawData) {
 
   const minTempElements = daily.querySelectorAll("[data-minTemp]");
 
-  const days = daily.querySelectorAll("[data-day]");
+  const dayName = daily.querySelectorAll("[data-day]");
+  const dayIcon = daily.querySelectorAll(".daily__icon");
 
   for (let i = 0; i < 7; i++) {
     const indexHTML = (today + i) % 7;
 
-    maxTempElements[i].textContent = Math.round(maxTempApi[i]) + "\u00B0";
+    maxTempElements[i].textContent = round(maxTempAPI[i]) + "\u00B0";
 
-    minTempElements[i].textContent = Math.round(minTempApi[i]) + "\u00B0";
+    minTempElements[i].textContent = round(minTempAPI[i]) + "\u00B0";
 
-    days[i].textContent = daysArr[indexHTML];
+    dayName[i].textContent = daysArr[indexHTML];
+  }
+
+  //======================== ICONES
+  const weatherCodeAPI = rawData.daily.weather_code;
+  console.log(weatherCodeAPI);
+
+  //
+  //   for (let i = 0; i < icons.length; i++) {
+  //     console.log(`============================== ${i}`);
+  //     for (let j = 0; j < icons[i].codes.length; j++) {
+  //       console.log(icons[i].codes[j]);
+  //       if (icons[i].codes[j] === weatherCodeAPI[k]) {
+  //         dayIcon[k].src = icons[i].weather;
+  //       }
+  //     }
+  //   }}
+  // }
+
+  for (let i = 0; i < weatherCodeAPI.length; i++) {
+    for (let j = 0; j < icons.length; j++) {
+      console.log(`============================== ${j}`);
+
+      if (icons[j].codes.includes(weatherCodeAPI[i])) {
+        dayIcon[i].src = icons[j].weather;
+      }
+    }
   }
 }
 
-let hourlyData;
+const weeklyHourlyData = [
+  { day: "", temp: [], code: [] },
+  { day: "", temp: [], code: [] },
+  { day: "", temp: [], code: [] },
+  { day: "", temp: [], code: [] },
+  { day: "", temp: [], code: [] },
+  { day: "", temp: [], code: [] },
+  { day: "", temp: [], code: [] },
+];
 
 function updateHourlySection(rawData) {
-  const daysArr = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-
-  hourlyData = [
-    { day: "", temp: [], code: [] },
-    { day: "", temp: [], code: [] },
-    { day: "", temp: [], code: [] },
-    { day: "", temp: [], code: [] },
-    { day: "", temp: [], code: [] },
-    { day: "", temp: [], code: [] },
-    { day: "", temp: [], code: [] },
-  ];
-
-  configureWeekOrder(rawData, hourlyData, daysArr);
-  populateHourlyData(rawData, hourlyData);
-  renderHourlySection(hourlyData);
+  configureWeekOrder(rawData, weeklyHourlyData);
+  populateHourlyData(rawData, weeklyHourlyData);
+  renderHourlySection(weeklyHourlyData);
 }
 
-function configureWeekOrder(rawData, hourlyData, daysArr) {
+function configureWeekOrder(rawData, weeklyHourlyData) {
+  const daysArr = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
   // Formatar a data de acordo com timezone
   const formattedDay = new Intl.DateTimeFormat("en-US", {
     weekday: "long",
@@ -283,11 +320,11 @@ function configureWeekOrder(rawData, hourlyData, daysArr) {
   for (let i = 0; i < daysArr.length; i++) {
     const indexHTML = (today + i) % 7;
 
-    hourlyData[i].day = daysArr[indexHTML];
+    weeklyHourlyData[i].day = daysArr[indexHTML];
   }
 }
 
-function populateHourlyData(rawData, hourlyData) {
+function populateHourlyData(rawData, weeklyHourlyData) {
   const hourlyWeatherCode = rawData.hourly.weather_code;
   const hourlyTemp = rawData.hourly.temperature_2m;
 
@@ -295,8 +332,8 @@ function populateHourlyData(rawData, hourlyData) {
   const HOURS_PER_DAY = 24;
   for (let i = 0; i < 7; i++) {
     for (let j = 0; j < 24; j++) {
-      hourlyData[i].temp[j] = hourlyTemp[j + dayStartIndex];
-      hourlyData[i].code[j] = hourlyWeatherCode[j + dayStartIndex];
+      weeklyHourlyData[i].temp[j] = hourlyTemp[j + dayStartIndex];
+      weeklyHourlyData[i].code[j] = hourlyWeatherCode[j + dayStartIndex];
     }
 
     // adicionando 24 posições (0-23)
@@ -304,48 +341,44 @@ function populateHourlyData(rawData, hourlyData) {
   }
 }
 
-function renderHourlySection(hourlyData) {
-  for (let i = 0; i < hourlyData.length; i++) {
-    console.log(`renderHourlyDate: ${hourlyData[i].day}`);
+function renderHourlySection(weeklyHourlyData) {
+  for (let i = 0; i < weeklyHourlyData.length; i++) {
+    console.log(`renderHourlyDate: ${weeklyHourlyData[i].day}`);
   }
 
-  const select = document.getElementById("ddlDays");
   // Renderizando DropDown
   let optionsElements = document.querySelectorAll("#ddlDays  option");
 
-  hourlyData.forEach((element, index) => {
+  weeklyHourlyData.forEach((element, index) => {
     optionsElements[index].textContent = element.day;
   });
 
   // Renderizando Temp do dia inicial do array
   const hourlyTemp = document.querySelectorAll(".hourly__temp");
 
-  hourlyData[0].temp.forEach((element, index) => {
-    hourlyTemp[index].textContent = Math.round(element) + "\u00B0";
+  weeklyHourlyData[0].temp.forEach((element, index) => {
+    hourlyTemp[index].textContent = round(element) + "\u00B0";
   });
 }
 
-document.addEventListener("change", callFunc);
+const select = document.getElementById("ddlDays");
+select.addEventListener("change", () => updateHourlyByDay(weeklyHourlyData));
 
-function callFunc() {
-  renderHSByChangeDDDay(hourlyData);
-}
-
-function renderHSByChangeDDDay(hourlyData) {
-  console.log(hourlyData);
+function updateHourlyByDay(weeklyHourlyData) {
+  console.log(weeklyHourlyData);
 
   const select = document.getElementById("ddlDays");
   const hourlyTemp = document.querySelectorAll(".hourly__temp");
 
   // organizando o value do selct com os days
   for (let i = 0; i < 7; i++) {
-    select.options[i].value = hourlyData[i].day;
+    select.options[i].value = weeklyHourlyData[i].day;
   }
 
   for (let i = 0; i < 7; i++) {
-    if (select.value === hourlyData[i].day) {
+    if (select.value === weeklyHourlyData[i].day) {
       for (let j = 0; j < 24; j++) {
-        hourlyTemp[j].textContent = round(hourlyData[i].temp[j]) + "\u00B0";
+        hourlyTemp[j].textContent = round(weeklyHourlyData[i].temp[j]) + "\u00B0";
       }
     }
   }

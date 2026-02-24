@@ -85,7 +85,7 @@ async function fetchGeolocationAPI() {
 async function loadGeolocation() {
   try {
     const geoJson = await fetchGeolocationAPI();
-    console.log(geoJson);
+    console.log("API de geolocation", geoJson);
     extractGeolocationData(geoJson);
   } catch (error) {
     console.error(`Erro na API: ${error.message} `);
@@ -121,7 +121,8 @@ function buildWeatherURL(lat, lon) {
     timezone: "auto",
   });
 
-  console.log(`Passando URL com a lat e lon: https://api.open-meteo.com/v1/forecast?${params}`);
+  console.log(`Retornando URL com a lat e lon vindas da API de Geolocation:
+https://api.open-meteo.com/v1/forecast?${params}`);
   return `https://api.open-meteo.com/v1/forecast?${params}`;
 }
 
@@ -280,7 +281,7 @@ const weeklyHourlyData = [
 function updateHourlySection(rawData) {
   configureWeekOrder(rawData, weeklyHourlyData);
   populateHourlyData(rawData, weeklyHourlyData);
-  renderHourlySection(weeklyHourlyData);
+  renderTodayHourlySection(weeklyHourlyData);
 }
 
 function configureWeekOrder(rawData, weeklyHourlyData) {
@@ -323,15 +324,11 @@ function populateHourlyData(rawData, weeklyHourlyData) {
     // adicionando 24 posições (0-23)
     dayStartIndex = dayStartIndex + HOURS_PER_DAY;
   }
-  console.log(weeklyHourlyData);
+
+  console.log("Array populado já com as divisões de dias: ", weeklyHourlyData);
 }
 
-function renderHourlySection(weeklyHourlyData) {
-  //teste
-  for (let i = 0; i < weeklyHourlyData.length; i++) {
-    console.log(`renderHourlyDate: ${weeklyHourlyData[i].day}`);
-  }
-
+function renderTodayHourlySection(weeklyHourlyData) {
   // Renderizando DropDown
   let optionsElements = document.querySelectorAll("#ddlDays  option");
 
@@ -355,9 +352,9 @@ function renderHourlySection(weeklyHourlyData) {
 }
 
 const select = document.getElementById("ddlDays");
-select.addEventListener("change", () => updateHourlyByDay(weeklyHourlyData));
+select.addEventListener("change", () => updateHourlySectionByDay(weeklyHourlyData));
 
-function updateHourlyByDay(weeklyHourlyData) {
+function updateHourlySectionByDay(weeklyHourlyData) {
   console.log(weeklyHourlyData);
 
   const select = document.getElementById("ddlDays");

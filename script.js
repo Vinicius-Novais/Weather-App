@@ -5,7 +5,7 @@ const elements = {
 const coordinates = [-23.5506507, -46.6333824];
 const round = (value) => Math.round(value);
 
-const icons = [
+const weatherIconMap = [
   { weather: "/assets/images/icon-sunny.webp", codes: [0, 1] },
   { weather: "/assets/images/icon-partly-cloudy.webp", codes: [2] },
   { weather: "/assets/images/icon-overcast.webp", codes: [3] },
@@ -15,8 +15,6 @@ const icons = [
   { weather: "/assets/images/icon-snow.webp", codes: [71, 73, 75, 77, 85, 86] },
   { weather: "/assets/images/icon-storm.webp", codes: [95, 96, 99] },
 ];
-
-const weatherGroups = {};
 
 init();
 
@@ -191,7 +189,7 @@ function formatCurrentData(rawData) {
     feelsLike: round(rawData.current.apparent_temperature),
     humidity: rawData.current.relative_humidity_2m,
     wind: round(rawData.current.wind_speed_10m),
-    precipitation: round(rawData.current.precipitation),
+    precipitation: rawData.current.precipitation,
     is_day: rawData.current.is_day,
     timezone: rawData.timezone,
   };
@@ -257,27 +255,13 @@ function renderDailyData(rawData) {
   }
 
   //======================== ICONES
-  const weatherCodeAPI = rawData.daily.weather_code;
-  console.log(weatherCodeAPI);
+  const dailyWeatherCodes = rawData.daily.weather_code;
 
-  //
-  //   for (let i = 0; i < icons.length; i++) {
-  //     console.log(`============================== ${i}`);
-  //     for (let j = 0; j < icons[i].codes.length; j++) {
-  //       console.log(icons[i].codes[j]);
-  //       if (icons[i].codes[j] === weatherCodeAPI[k]) {
-  //         dayIcon[k].src = icons[i].weather;
-  //       }
-  //     }
-  //   }}
-  // }
-
-  for (let i = 0; i < weatherCodeAPI.length; i++) {
-    for (let j = 0; j < icons.length; j++) {
-      console.log(`============================== ${j}`);
-
-      if (icons[j].codes.includes(weatherCodeAPI[i])) {
-        dayIcon[i].src = icons[j].weather;
+  for (let i = 0; i < dailyWeatherCodes.length; i++) {
+    for (let j = 0; j < weatherIconMap.length; j++) {
+      if (weatherIconMap[j].codes.includes(dailyWeatherCodes[i])) {
+        dayIcon[i].src = weatherIconMap[j].weather;
+        break;
       }
     }
   }
@@ -339,9 +323,11 @@ function populateHourlyData(rawData, weeklyHourlyData) {
     // adicionando 24 posições (0-23)
     dayStartIndex = dayStartIndex + HOURS_PER_DAY;
   }
+  console.log(weeklyHourlyData);
 }
 
 function renderHourlySection(weeklyHourlyData) {
+  //teste
   for (let i = 0; i < weeklyHourlyData.length; i++) {
     console.log(`renderHourlyDate: ${weeklyHourlyData[i].day}`);
   }
@@ -355,10 +341,25 @@ function renderHourlySection(weeklyHourlyData) {
 
   // Renderizando Temp do dia inicial do array
   const hourlyTemp = document.querySelectorAll(".hourly__temp");
+  const hourlyIcon = document.querySelectorAll(".hourly__icon");
 
   weeklyHourlyData[0].temp.forEach((element, index) => {
     hourlyTemp[index].textContent = round(element) + "\u00B0";
   });
+
+  for (let i = 0; i < 24; i++) {
+    console.log(`==================================i ${i}`);
+    for (let j = 0; j < weatherIconMap.length; j++) {
+      console.log(`========================j ${j}`);
+
+      if (weatherIconMap[j].codes.includes(weeklyHourlyData[0].code[i])) {
+        console.log(`ENTROU I ${i}, J ${j} `);
+        console.log(weatherIconMap[j].weather);
+        hourlyIcon[i].src = weatherIconMap[j].weather;
+        break;
+      }
+    }
+  }
 }
 
 const select = document.getElementById("ddlDays");

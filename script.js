@@ -106,7 +106,7 @@ function extractGeolocationData(rawData) {
   coordinates[1] = lon;
 
   loadWeather();
-  updateLocationInfo(rawData);
+  getLocationName(rawData);
 }
 
 // =================================== WEATHER ========================================
@@ -147,7 +147,7 @@ async function loadWeather() {
   }
 }
 
-function updateLocationInfo(rawData) {
+function getLocationName(rawData) {
   const addressData = rawData[0].address;
 
   const addressType = rawData[0].addresstype;
@@ -155,23 +155,17 @@ function updateLocationInfo(rawData) {
   const country = addressData.country;
   const place = rawData[0].address[addressType];
 
-  console.log("Has state: " + Object.hasOwn(addressData, "state"));
-  console.log("Has country: " + Object.hasOwn(addressData, "country"));
+  const locationElement = document.querySelector(".current__city");
 
-  const location = document.querySelector(".current__city");
+  locationElement.textContent = addressType === "state" ? `${place} , ${country}` : `${place} , ${state}`;
 
-  // if (Object.hasOwn(addressData, "state")) {
-
-  //   location.textContent = place + ", " + state;
-
-  //   if(addressData.state === addressData.country)  {
-
-  //   }
-  // } else if (Object.hasOwn(addressData, "country")) {
-  //   location.textContent = place + ", " + country;
-  // }
-
-  location.textContent = addressType === "state" ? `${place} , ${country}` : `${place} , ${state}`;
+  if (!Object.hasOwn(addressData, "state")) {
+    locationElement.textContent = `${place}, ${country}`;
+  } else if (addressType === "state") {
+    locationElement.textContent = `${place}, ${country}`;
+  } else {
+    locationElement.textContent = `${place}, ${state}`;
+  }
 }
 
 function updateWeatherUI(rawData) {
@@ -360,15 +354,37 @@ function updateHourlySectionByDay(weeklyHourlyData) {
   const select = document.getElementById("ddlDays");
   const hourlyTemp = document.querySelectorAll(".hourly__temp");
 
-  // organizando o value do selct com os days
+  // organizando o value do select com os days
   for (let i = 0; i < 7; i++) {
     select.options[i].value = weeklyHourlyData[i].day;
   }
 
   for (let i = 0; i < 7; i++) {
     if (select.value === weeklyHourlyData[i].day) {
+      console.log("valor selecionado", select.value);
+      console.log("dia no array", weeklyHourlyData[i].day);
       for (let j = 0; j < 24; j++) {
+        console.log(round(weeklyHourlyData[i].temp[j]) + "\u00B0");
         hourlyTemp[j].textContent = round(weeklyHourlyData[i].temp[j]) + "\u00B0";
+      }
+    }
+  }
+
+  const hourlyIcon = document.querySelectorAll(".hourly__icon");
+  function getSelectedIndex() {
+    for (let i = 0; i < weeklyHourlyData.length; i++) {
+      if (select.value === weeklyHourlyData[i].day) {
+        console.log("dia selecioando " + i);
+        return i;
+      }
+    }
+  }
+
+  for (let i = 0; i < 24; i++) {
+    for (let j = 0; j < weatherIconMap.length; j++) {
+      if (weatherIconMap[j].codes.includes(weeklyHourlyData[getSelectedIndex()].code[i])) {
+        hourlyIcon[i].src = weatherIconMap[j].weather;
+        break;
       }
     }
   }

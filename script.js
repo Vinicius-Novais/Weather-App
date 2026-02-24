@@ -339,22 +339,14 @@ function renderHourlySection(weeklyHourlyData) {
     optionsElements[index].textContent = element.day;
   });
 
-  // Renderizando Temp do dia inicial do array
+  // Renderizando as Temp's e os ícones do dia inicial do array por hora
   const hourlyTemp = document.querySelectorAll(".hourly__temp");
   const hourlyIcon = document.querySelectorAll(".hourly__icon");
 
-  weeklyHourlyData[0].temp.forEach((element, index) => {
-    hourlyTemp[index].textContent = round(element) + "\u00B0";
-  });
-
   for (let i = 0; i < 24; i++) {
-    console.log(`==================================i ${i}`);
+    hourlyTemp[i].textContent = round(weeklyHourlyData[0].temp[i]) + "\u00B0";
     for (let j = 0; j < weatherIconMap.length; j++) {
-      console.log(`========================j ${j}`);
-
       if (weatherIconMap[j].codes.includes(weeklyHourlyData[0].code[i])) {
-        console.log(`ENTROU I ${i}, J ${j} `);
-        console.log(weatherIconMap[j].weather);
         hourlyIcon[i].src = weatherIconMap[j].weather;
         break;
       }

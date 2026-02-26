@@ -2,9 +2,11 @@ const elements = {
   heroTextBox: document.querySelector(".hero__textbox"),
   heroButton: document.querySelector(".hero__button"),
 };
-const coordinates = [-23.5506507, -46.6333824];
-const round = (value) => Math.round(value);
 
+const appState = {
+  status: "succes",
+  resultType: "normal",
+};
 const weatherIconMap = [
   { weather: "/assets/images/icon-sunny.webp", codes: [0, 1] },
   { weather: "/assets/images/icon-partly-cloudy.webp", codes: [2] },
@@ -15,7 +17,8 @@ const weatherIconMap = [
   { weather: "/assets/images/icon-snow.webp", codes: [71, 73, 75, 77, 85, 86] },
   { weather: "/assets/images/icon-storm.webp", codes: [95, 96, 99] },
 ];
-
+const coordinates = [-23.5506507, -46.6333824];
+const round = (value) => Math.round(value);
 init();
 
 async function init() {
@@ -25,6 +28,7 @@ async function init() {
 
     isDay(currentData);
     setDate(weatherJson);
+    setStatus("succes", "normal");
 
     // seta a tempertarura do current
     document.querySelector('[data-condition="temp"]').textContent = round(weatherJson.current.temperature_2m) + "\u00B0";
@@ -32,7 +36,37 @@ async function init() {
     document.querySelector(".current__city").textContent = "São Paulo, Brasil";
   } catch (error) {
     console.error(`Erro na API: ${error.message} `);
-    errorPage(error);
+    setStatus("apiError", "normal");
+  }
+}
+
+function setStatus(newStatus, newResultType) {
+  appState.status = newStatus;
+  appState.resultType = newResultType;
+
+  renderScreen(appState.status, appState.resultType);
+}
+
+function renderScreen(state, resultType) {
+  console.log(appState);
+  const hero = document.querySelector(".hero");
+  const dashboard = document.querySelector(".dashboard");
+  const noResult = document.querySelector(".no_result");
+  const apiError = document.querySelector(".api_error");
+
+  if (state === "iddle") {
+    hero.classList.remove("page-hidden");
+    dashboard.classList.remove("page-hidden");
+  } else if (state === "succes") {
+    hero.classList.remove("page-hidden");
+    dashboard.classList.remove("page-hidden");
+
+    if (resultType === "notFound") {
+      dashboard.classList.add("page-hidden");
+      noResult.classList.remove("page-hidden");
+    }
+  } else if (state === "apiError") {
+    apiError.classList.remove("page-hidden");
   }
 }
 
@@ -86,10 +120,15 @@ async function loadGeolocation() {
   try {
     const geoJson = await fetchGeolocationAPI();
     console.log("API de geolocation", geoJson);
+
+    if (geoJson.length === 0) {
+      setStatus("succes", "notFound");
+      return;
+    }
+
     extractGeolocationData(geoJson);
   } catch (error) {
     console.error(`Erro na API: ${error.message} `);
-    errorPage(error);
   }
 }
 
@@ -135,11 +174,11 @@ async function fetchWeatherAPI() {
 async function loadWeather() {
   try {
     const weatherJson = await fetchWeatherAPI();
-
     updateWeatherUI(weatherJson);
+    setStatus("succes", "normal");
   } catch (error) {
     console.log(error);
-    showerror();
+    setStatus("apiError", "normal");
   }
 }
 

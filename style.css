@@ -205,8 +205,12 @@
     border-radius: 12px;
   }
 
-  .dropdown {
+  .dropDown {
     color: var(--color-text-light);
+  }
+
+  .page-hidden {
+    display: none !important ;
   }
 }
 
@@ -508,6 +512,97 @@
     }
     .hourly__temp {
       font-size: var(--font-size-forecast-temp);
+    }
+  }
+
+  .screen-main {
+    display: none;
+  }
+
+  .screen_no-result-found {
+    text-align: center;
+    font-size: 25px;
+    font-weight: 700;
+
+    @media (width >= calc(700/16 * 1rem)) {
+      font-size: 30px;
+    }
+  }
+  .screen_api-error {
+    display: grid;
+    gap: 15px;
+    justify-items: center;
+
+    margin-block-start: 120px;
+
+    .api-error__icon {
+      height: 25px;
+      width: auto;
+      @media (width >= calc(700/16 * 1rem)) {
+        height: 35px;
+      }
+      @media (width >= calc(1000/16 * 1rem)) {
+        height: 45px;
+      }
+    }
+
+    .api-error__title {
+      margin-block-start: 10px;
+      font-size: 28px;
+
+      @media (width >= calc(700/16 * 1rem)) {
+        font-size: 45px;
+      }
+      @media (width >= calc(1000/16 * 1rem)) {
+        font-size: 55px;
+      }
+    }
+
+    .api-error__message {
+      max-width: 40ch;
+      text-align: center;
+      line-height: 1.3;
+      font-size: 12px;
+
+      color: var(--color-text-med-light);
+      @media (width >= calc(700/16 * 1rem)) {
+        font-size: 18px;
+      }
+      @media (width >= calc(1000/16 * 1rem)) {
+        font-size: 23px;
+      }
+    }
+
+    .api-error__button {
+      border: none;
+      background-color: var(--color-panel-bg-med);
+      color: var(--c-blue-500);
+      font-size: 13px;
+      padding-inline-start: 30px;
+      padding-inline-end: 10px;
+      padding-block: 9px;
+      border-radius: 8px;
+      color: var(--color-text-light);
+      background-image: url(assets/images/icon-retry.svg);
+      background-size: auto;
+      background-repeat: no-repeat;
+      background-position: 10px center;
+      margin-block-start: 5px;
+
+      &:hover {
+        cursor: pointer;
+        background-color: var(--color-panel-bg-light);
+      }
+
+      @media (width >= calc(700/16 * 1rem)) {
+        font-size: 19px;
+        padding-inline-start: 33px;
+        background-size: 15px 16px;
+      }
+      @media (width >= calc(1000/16 * 1rem)) {
+        padding-inline-start: 35px;
+        background-size: 17px 18px;
+      }
     }
   }
 }

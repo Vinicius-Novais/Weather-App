@@ -93,10 +93,6 @@ async function loadGeolocation() {
   }
 }
 
-function errorPage(error) {
-  console.log("ERRO: " + error.message);
-}
-
 function extractGeolocationData(rawData) {
   const lat = rawData[0].lat;
   const lon = rawData[0].lon;

@@ -15,7 +15,7 @@
         <a class="header__homelink" href="/">
           <img class="header__logo" src="/assets/images/logo.svg" alt="Weather now home" width="197" height="40" />
         </a>
-        <select class="header__dropdown dropdown" id="ddlUnits" name="units">
+        <select class="header__dropdown dropDown" id="ddlUnits" name="units">
           <option value="Switch-to-Imperial">Units</option>
           <optgroup label="Temperature">
             <option value="C">Celsius (°C)</option>
@@ -44,289 +44,299 @@
           </div>
         </div>
       </section>
+      <div class="screen_main page-hidden">
+        <div class="dashboard wrapper">
+          <section class="current">
+            <h2 class="visually-hidden">Current Location Temperature</h2>
 
-      <div class="dashboard wrapper">
-        <section class="current">
-          <h2 class="visually-hidden">Current Location Temperature</h2>
+            <div class="current__weather">
+              <div class="current__location">
+                <div class="current__city"></div>
+                <div class="current__date"></div>
+              </div>
+              <div class="current__iconTemp">
+                <img class="current__icon" src="" alt="" width="320" height="320" />
+                <div class="current__temp" data-condition="temp"></div>
+              </div>
+            </div>
 
-          <div class="current__weather">
-            <div class="current__location">
-              <div class="current__city"></div>
-              <div class="current__date"></div>
+            <div class="current__conditions">
+              <div class="block current__condition">
+                <p class="current__condition-title">Feels Like</p>
+                <p id="feelsLike" class="current__condition-value" data-condition="feelsLike">18&deg;</p>
+              </div>
+              <div class="block current__condition">
+                <p class="current__condition-title">Humidity</p>
+                <p id="humidity" class="current__condition-value" data-condition="humidity">46%</p>
+              </div>
+              <div class="block current__condition">
+                <p class="current__condition-title">Wind</p>
+                <p id="wind" class="current__condition-value" data-condition="wind">14 km/h</p>
+              </div>
+              <div class="block current__condition">
+                <p class="current__condition-title">Precipitation</p>
+                <p id="precipitation" class="current__condition-value" data-condition="precipitation">0 mm</p>
+              </div>
             </div>
-            <div class="current__iconTemp">
-              <img class="current__icon" src="" alt="" width="320" height="320" />
-              <div class="current__temp" data-condition="temp"></div>
-            </div>
-          </div>
+          </section>
+          <section class="daily">
+            <h2 class="section__title daily__title">Daily Forecast</h2>
 
-          <div class="current__conditions">
-            <div class="block current__condition">
-              <p class="current__condition-title">Feels Like</p>
-              <p id="feelsLike" class="current__condition-value" data-condition="feelsLike">18&deg;</p>
-            </div>
-            <div class="block current__condition">
-              <p class="current__condition-title">Humidity</p>
-              <p id="humidity" class="current__condition-value" data-condition="humidity">46%</p>
-            </div>
-            <div class="block current__condition">
-              <p class="current__condition-title">Wind</p>
-              <p id="wind" class="current__condition-value" data-condition="wind">14 km/h</p>
-            </div>
-            <div class="block current__condition">
-              <p class="current__condition-title">Precipitation</p>
-              <p id="precipitation" class="current__condition-value" data-condition="precipitation">0 mm</p>
-            </div>
-          </div>
-        </section>
-        <section class="daily">
-          <h2 class="section__title daily__title">Daily Forecast</h2>
-
-          <div class="daily__cards">
-            <div class="block daily__card">
-              <p class="daily__day" data-day="0">Mon</p>
-              <img class="daily__icon" src="/assets/images/icon-fog.webp" alt="" width="320" height="320" />
-              <div class="daily__temps">
-                <p class="daily__max-temp" data-maxTemp="0">24&deg;</p>
-                <p class="daily__min-temp" data-minTemp="0">15&deg;</p>
+            <div class="daily__cards">
+              <div class="block daily__card">
+                <p class="daily__day" data-day="0">Mon</p>
+                <img class="daily__icon" src="/assets/images/icon-fog.webp" alt="" width="320" height="320" />
+                <div class="daily__temps">
+                  <p class="daily__max-temp" data-maxTemp="0">24&deg;</p>
+                  <p class="daily__min-temp" data-minTemp="0">15&deg;</p>
+                </div>
               </div>
-            </div>
-            <div class="block daily__card">
-              <p class="daily__day" data-day="1">Tue</p>
-              <img class="daily__icon" src="/assets/images/icon-rain.webp" alt="" width="320" height="320" />
-              <div class="daily__temps">
-                <p class="daily__max-temp" data-maxTemp="1">20&deg;</p>
-                <p class="daily__min-temp" data-minTemp="1">14&deg;</p>
+              <div class="block daily__card">
+                <p class="daily__day" data-day="1">Tue</p>
+                <img class="daily__icon" src="/assets/images/icon-rain.webp" alt="" width="320" height="320" />
+                <div class="daily__temps">
+                  <p class="daily__max-temp" data-maxTemp="1">20&deg;</p>
+                  <p class="daily__min-temp" data-minTemp="1">14&deg;</p>
+                </div>
               </div>
-            </div>
-            <div class="block daily__card">
-              <p class="daily__day" data-day="2">Wed</p>
-              <img class="daily__icon" src="/assets/images/icon-drizzle.webp" alt="" width="320" height="320" />
-              <div class="daily__temps">
-                <p class="daily__max-temp" data-maxTemp="2">21&deg;</p>
-                <p class="daily__min-temp" data-minTemp="2">15&deg;</p>
+              <div class="block daily__card">
+                <p class="daily__day" data-day="2">Wed</p>
+                <img class="daily__icon" src="/assets/images/icon-drizzle.webp" alt="" width="320" height="320" />
+                <div class="daily__temps">
+                  <p class="daily__max-temp" data-maxTemp="2">21&deg;</p>
+                  <p class="daily__min-temp" data-minTemp="2">15&deg;</p>
+                </div>
               </div>
-            </div>
-            <div class="block daily__card">
-              <p class="daily__day" data-day="3">Thu</p>
-              <img class="daily__icon" src="/assets/images/icon-sunny.webp" alt="" width="320" height="320" />
-              <div class="daily__temps">
-                <p class="daily__max-temp" data-maxTemp="3">24&deg;</p>
-                <p class="daily__min-temp" data-minTemp="3">14&deg;</p>
+              <div class="block daily__card">
+                <p class="daily__day" data-day="3">Thu</p>
+                <img class="daily__icon" src="/assets/images/icon-sunny.webp" alt="" width="320" height="320" />
+                <div class="daily__temps">
+                  <p class="daily__max-temp" data-maxTemp="3">24&deg;</p>
+                  <p class="daily__min-temp" data-minTemp="3">14&deg;</p>
+                </div>
               </div>
-            </div>
-            <div class="block daily__card">
-              <p class="daily__day" data-day="4">Fri</p>
-              <img class="daily__icon" src="/assets/images/icon-partly-cloudy.webp" alt="" width="320" height="320" />
-              <div class="daily__temps">
-                <p class="daily__max-temp" data-maxTemp="4">25&deg;</p>
-                <p class="daily__min-temp" data-minTemp="4">13&deg;</p>
+              <div class="block daily__card">
+                <p class="daily__day" data-day="4">Fri</p>
+                <img class="daily__icon" src="/assets/images/icon-partly-cloudy.webp" alt="" width="320" height="320" />
+                <div class="daily__temps">
+                  <p class="daily__max-temp" data-maxTemp="4">25&deg;</p>
+                  <p class="daily__min-temp" data-minTemp="4">13&deg;</p>
+                </div>
+              </div>
+              <div class="block daily__card">
+                <p class="daily__day" data-day="5">Sat</p>
+                <img class="daily__icon" src="/assets/images/icon-storm.webp" alt="" width="320" height="320" />
+                <div class="daily__temps">
+                  <p class="daily__max-temp" data-maxTemp="5">21&deg;</p>
+                  <p class="daily__min-temp" data-minTemp="5">15&deg;</p>
+                </div>
+              </div>
+              <div class="block daily__card">
+                <p class="daily__day" data-day="6">Sun</p>
+                <img class="daily__icon" src="/assets/images/icon-snow.webp" alt="" width="320" height="320" />
+                <div class="daily__temps">
+                  <p class="daily__max-temp" data-maxTemp="6">25&deg;</p>
+                  <p class="daily__min-temp" data-minTemp="6">16&deg;</p>
+                </div>
               </div>
             </div>
-            <div class="block daily__card">
-              <p class="daily__day" data-day="5">Sat</p>
-              <img class="daily__icon" src="/assets/images/icon-storm.webp" alt="" width="320" height="320" />
-              <div class="daily__temps">
-                <p class="daily__max-temp" data-maxTemp="5">21&deg;</p>
-                <p class="daily__min-temp" data-minTemp="5">15&deg;</p>
+          </section>
+          <section class="hourly">
+            <div class="hourly__content">
+              <div class="hourly__header">
+                <h2 class="section__title hourly__title">Hourly Forecast</h2>
+                <select class="hourly__dropdown dropDown" name="Days" id="ddlDays">
+                  <option class="hourly__day" value="" selected></option>
+                  <option class="hourly__day" value=""></option>
+                  <option class="hourly__day" value=""></option>
+                  <option class="hourly__day" value=""></option>
+                  <option class="hourly__day" value=""></option>
+                  <option class="hourly__day" value=""></option>
+                  <option class="hourly__day" value=""></option>
+                </select>
+              </div>
+              <div class="hourly__cards">
+                <div class="block hourly__card">
+                  <div class="hourly__icon-hour">
+                    <img class="hourly__icon" src="/assets/images/icon-overcast.webp" alt="" width="40" height="40" />
+                    <p class="hourly__time">0 AM</p>
+                  </div>
+                  <p class="hourly__temp">20&deg;</p>
+                </div>
+                <div class="block hourly__card">
+                  <div class="hourly__icon-hour">
+                    <img class="hourly__icon" src="/assets/images/icon-overcast.webp" alt="" width="40" height="40" />
+                    <p class="hourly__time">1 AM</p>
+                  </div>
+                  <p class="hourly__temp">20&deg;</p>
+                </div>
+                <div class="block hourly__card">
+                  <div class="hourly__icon-hour">
+                    <img class="hourly__icon" src="/assets/images/icon-overcast.webp" alt="" width="40" height="40" />
+                    <p class="hourly__time">2 AM</p>
+                  </div>
+                  <p class="hourly__temp">20&deg;</p>
+                </div>
+                <div class="block hourly__card">
+                  <div class="hourly__icon-hour">
+                    <img class="hourly__icon" src="/assets/images/icon-overcast.webp" alt="" width="40" height="40" />
+                    <p class="hourly__time">3 AM</p>
+                  </div>
+                  <p class="hourly__temp">20&deg;</p>
+                </div>
+                <div class="block hourly__card">
+                  <div class="hourly__icon-hour">
+                    <img class="hourly__icon" src="/assets/images/icon-overcast.webp" alt="" width="40" height="40" />
+                    <p class="hourly__time">4 AM</p>
+                  </div>
+                  <p class="hourly__temp">20&deg;</p>
+                </div>
+                <div class="block hourly__card">
+                  <div class="hourly__icon-hour">
+                    <img class="hourly__icon" src="/assets/images/icon-overcast.webp" alt="" width="40" height="40" />
+                    <p class="hourly__time">5 AM</p>
+                  </div>
+                  <p class="hourly__temp">20&deg;</p>
+                </div>
+                <div class="block hourly__card">
+                  <div class="hourly__icon-hour">
+                    <img class="hourly__icon" src="/assets/images/icon-overcast.webp" alt="" width="40" height="40" />
+                    <p class="hourly__time">6 AM</p>
+                  </div>
+                  <p class="hourly__temp">20&deg;</p>
+                </div>
+                <div class="block hourly__card">
+                  <div class="hourly__icon-hour">
+                    <img class="hourly__icon" src="/assets/images/icon-overcast.webp" alt="" width="40" height="40" />
+                    <p class="hourly__time">7 AM</p>
+                  </div>
+                  <p class="hourly__temp">20&deg;</p>
+                </div>
+                <div class="block hourly__card">
+                  <div class="hourly__icon-hour">
+                    <img class="hourly__icon" src="/assets/images/icon-overcast.webp" alt="" width="40" height="40" />
+                    <p class="hourly__time">8 AM</p>
+                  </div>
+                  <p class="hourly__temp">20&deg;</p>
+                </div>
+                <div class="block hourly__card">
+                  <div class="hourly__icon-hour">
+                    <img class="hourly__icon" src="/assets/images/icon-overcast.webp" alt="" width="40" height="40" />
+                    <p class="hourly__time">9 AM</p>
+                  </div>
+                  <p class="hourly__temp">20&deg;</p>
+                </div>
+                <div class="block hourly__card">
+                  <div class="hourly__icon-hour">
+                    <img class="hourly__icon" src="/assets/images/icon-overcast.webp" alt="" width="40" height="40" />
+                    <p class="hourly__time">10 AM</p>
+                  </div>
+                  <p class="hourly__temp">20&deg;</p>
+                </div>
+                <div class="block hourly__card">
+                  <div class="hourly__icon-hour">
+                    <img class="hourly__icon" src="/assets/images/icon-overcast.webp" alt="" width="40" height="40" />
+                    <p class="hourly__time">11 AM</p>
+                  </div>
+                  <p class="hourly__temp">20&deg;</p>
+                </div>
+                <div class="block hourly__card">
+                  <div class="hourly__icon-hour">
+                    <img class="hourly__icon" src="/assets/images/icon-overcast.webp" alt="" width="40" height="40" />
+                    <p class="hourly__time">12 AM</p>
+                  </div>
+                  <p class="hourly__temp">20&deg;</p>
+                </div>
+                <div class="block hourly__card">
+                  <div class="hourly__icon-hour">
+                    <img class="hourly__icon" src="/assets/images/icon-overcast.webp" alt="" width="40" height="40" />
+                    <p class="hourly__time">13 PM</p>
+                  </div>
+                  <p class="hourly__temp">20&deg;</p>
+                </div>
+                <div class="block hourly__card">
+                  <div class="hourly__icon-hour">
+                    <img class="hourly__icon" src="/assets/images/icon-overcast.webp" alt="" width="40" height="40" />
+                    <p class="hourly__time">14 PM</p>
+                  </div>
+                  <p class="hourly__temp">20&deg;</p>
+                </div>
+                <div class="block hourly__card">
+                  <div class="hourly__icon-hour">
+                    <img class="hourly__icon" src="/assets/images/icon-overcast.webp" alt="" width="40" height="40" />
+                    <p class="hourly__time">15 PM</p>
+                  </div>
+                  <p class="hourly__temp">20&deg;</p>
+                </div>
+                <div class="block hourly__card">
+                  <div class="hourly__icon-hour">
+                    <img class="hourly__icon" src="/assets/images/icon-overcast.webp" alt="" width="40" height="40" />
+                    <p class="hourly__time">16 PM</p>
+                  </div>
+                  <p class="hourly__temp">20&deg;</p>
+                </div>
+                <div class="block hourly__card">
+                  <div class="hourly__icon-hour">
+                    <img class="hourly__icon" src="/assets/images/icon-overcast.webp" alt="" width="40" height="40" />
+                    <p class="hourly__time">17 PM</p>
+                  </div>
+                  <p class="hourly__temp">20&deg;</p>
+                </div>
+                <div class="block hourly__card">
+                  <div class="hourly__icon-hour">
+                    <img class="hourly__icon" src="/assets/images/icon-overcast.webp" alt="" width="40" height="40" />
+                    <p class="hourly__time">18 PM</p>
+                  </div>
+                  <p class="hourly__temp">20&deg;</p>
+                </div>
+                <div class="block hourly__card">
+                  <div class="hourly__icon-hour">
+                    <img class="hourly__icon" src="/assets/images/icon-overcast.webp" alt="" width="40" height="40" />
+                    <p class="hourly__time">19 PM</p>
+                  </div>
+                  <p class="hourly__temp">20&deg;</p>
+                </div>
+                <div class="block hourly__card">
+                  <div class="hourly__icon-hour">
+                    <img class="hourly__icon" src="/assets/images/icon-overcast.webp" alt="" width="40" height="40" />
+                    <p class="hourly__time">20 PM</p>
+                  </div>
+                  <p class="hourly__temp">20&deg;</p>
+                </div>
+                <div class="block hourly__card">
+                  <div class="hourly__icon-hour">
+                    <img class="hourly__icon" src="/assets/images/icon-overcast.webp" alt="" width="40" height="40" />
+                    <p class="hourly__time">21 PM</p>
+                  </div>
+                  <p class="hourly__temp">20&deg;</p>
+                </div>
+                <div class="block hourly__card">
+                  <div class="hourly__icon-hour">
+                    <img class="hourly__icon" src="/assets/images/icon-overcast.webp" alt="" width="40" height="40" />
+                    <p class="hourly__time">22 PM</p>
+                  </div>
+                  <p class="hourly__temp">20&deg;</p>
+                </div>
+                <div class="block hourly__card">
+                  <div class="hourly__icon-hour">
+                    <img class="hourly__icon" src="/assets/images/icon-overcast.webp" alt="" width="40" height="40" />
+                    <p class="hourly__time">23 PM</p>
+                  </div>
+                  <p class="hourly__temp">20&deg;</p>
+                </div>
               </div>
             </div>
-            <div class="block daily__card">
-              <p class="daily__day" data-day="6">Sun</p>
-              <img class="daily__icon" src="/assets/images/icon-snow.webp" alt="" width="320" height="320" />
-              <div class="daily__temps">
-                <p class="daily__max-temp" data-maxTemp="6">25&deg;</p>
-                <p class="daily__min-temp" data-minTemp="6">16&deg;</p>
-              </div>
-            </div>
-          </div>
-        </section>
-        <section class="hourly">
-          <div class="hourly__content">
-            <div class="hourly__header">
-              <h2 class="section__title hourly__title">Hourly Forecast</h2>
-              <select class="hourly__dropdown dropdown" name="Days" id="ddlDays">
-                <option class="hourly__day" value="" selected></option>
-                <option class="hourly__day" value=""></option>
-                <option class="hourly__day" value=""></option>
-                <option class="hourly__day" value=""></option>
-                <option class="hourly__day" value=""></option>
-                <option class="hourly__day" value=""></option>
-                <option class="hourly__day" value=""></option>
-              </select>
-            </div>
-            <div class="hourly__cards">
-              <div class="block hourly__card">
-                <div class="hourly__icon-hour">
-                  <img class="hourly__icon" src="/assets/images/icon-overcast.webp" alt="" width="40" height="40" />
-                  <p class="hourly__time">0 AM</p>
-                </div>
-                <p class="hourly__temp">20&deg;</p>
-              </div>
-              <div class="block hourly__card">
-                <div class="hourly__icon-hour">
-                  <img class="hourly__icon" src="/assets/images/icon-overcast.webp" alt="" width="40" height="40" />
-                  <p class="hourly__time">1 AM</p>
-                </div>
-                <p class="hourly__temp">20&deg;</p>
-              </div>
-              <div class="block hourly__card">
-                <div class="hourly__icon-hour">
-                  <img class="hourly__icon" src="/assets/images/icon-overcast.webp" alt="" width="40" height="40" />
-                  <p class="hourly__time">2 AM</p>
-                </div>
-                <p class="hourly__temp">20&deg;</p>
-              </div>
-              <div class="block hourly__card">
-                <div class="hourly__icon-hour">
-                  <img class="hourly__icon" src="/assets/images/icon-overcast.webp" alt="" width="40" height="40" />
-                  <p class="hourly__time">3 AM</p>
-                </div>
-                <p class="hourly__temp">20&deg;</p>
-              </div>
-              <div class="block hourly__card">
-                <div class="hourly__icon-hour">
-                  <img class="hourly__icon" src="/assets/images/icon-overcast.webp" alt="" width="40" height="40" />
-                  <p class="hourly__time">4 AM</p>
-                </div>
-                <p class="hourly__temp">20&deg;</p>
-              </div>
-              <div class="block hourly__card">
-                <div class="hourly__icon-hour">
-                  <img class="hourly__icon" src="/assets/images/icon-overcast.webp" alt="" width="40" height="40" />
-                  <p class="hourly__time">5 AM</p>
-                </div>
-                <p class="hourly__temp">20&deg;</p>
-              </div>
-              <div class="block hourly__card">
-                <div class="hourly__icon-hour">
-                  <img class="hourly__icon" src="/assets/images/icon-overcast.webp" alt="" width="40" height="40" />
-                  <p class="hourly__time">6 AM</p>
-                </div>
-                <p class="hourly__temp">20&deg;</p>
-              </div>
-              <div class="block hourly__card">
-                <div class="hourly__icon-hour">
-                  <img class="hourly__icon" src="/assets/images/icon-overcast.webp" alt="" width="40" height="40" />
-                  <p class="hourly__time">7 AM</p>
-                </div>
-                <p class="hourly__temp">20&deg;</p>
-              </div>
-              <div class="block hourly__card">
-                <div class="hourly__icon-hour">
-                  <img class="hourly__icon" src="/assets/images/icon-overcast.webp" alt="" width="40" height="40" />
-                  <p class="hourly__time">8 AM</p>
-                </div>
-                <p class="hourly__temp">20&deg;</p>
-              </div>
-              <div class="block hourly__card">
-                <div class="hourly__icon-hour">
-                  <img class="hourly__icon" src="/assets/images/icon-overcast.webp" alt="" width="40" height="40" />
-                  <p class="hourly__time">9 AM</p>
-                </div>
-                <p class="hourly__temp">20&deg;</p>
-              </div>
-              <div class="block hourly__card">
-                <div class="hourly__icon-hour">
-                  <img class="hourly__icon" src="/assets/images/icon-overcast.webp" alt="" width="40" height="40" />
-                  <p class="hourly__time">10 AM</p>
-                </div>
-                <p class="hourly__temp">20&deg;</p>
-              </div>
-              <div class="block hourly__card">
-                <div class="hourly__icon-hour">
-                  <img class="hourly__icon" src="/assets/images/icon-overcast.webp" alt="" width="40" height="40" />
-                  <p class="hourly__time">11 AM</p>
-                </div>
-                <p class="hourly__temp">20&deg;</p>
-              </div>
-              <div class="block hourly__card">
-                <div class="hourly__icon-hour">
-                  <img class="hourly__icon" src="/assets/images/icon-overcast.webp" alt="" width="40" height="40" />
-                  <p class="hourly__time">12 AM</p>
-                </div>
-                <p class="hourly__temp">20&deg;</p>
-              </div>
-              <div class="block hourly__card">
-                <div class="hourly__icon-hour">
-                  <img class="hourly__icon" src="/assets/images/icon-overcast.webp" alt="" width="40" height="40" />
-                  <p class="hourly__time">13 PM</p>
-                </div>
-                <p class="hourly__temp">20&deg;</p>
-              </div>
-              <div class="block hourly__card">
-                <div class="hourly__icon-hour">
-                  <img class="hourly__icon" src="/assets/images/icon-overcast.webp" alt="" width="40" height="40" />
-                  <p class="hourly__time">14 PM</p>
-                </div>
-                <p class="hourly__temp">20&deg;</p>
-              </div>
-              <div class="block hourly__card">
-                <div class="hourly__icon-hour">
-                  <img class="hourly__icon" src="/assets/images/icon-overcast.webp" alt="" width="40" height="40" />
-                  <p class="hourly__time">15 PM</p>
-                </div>
-                <p class="hourly__temp">20&deg;</p>
-              </div>
-              <div class="block hourly__card">
-                <div class="hourly__icon-hour">
-                  <img class="hourly__icon" src="/assets/images/icon-overcast.webp" alt="" width="40" height="40" />
-                  <p class="hourly__time">16 PM</p>
-                </div>
-                <p class="hourly__temp">20&deg;</p>
-              </div>
-              <div class="block hourly__card">
-                <div class="hourly__icon-hour">
-                  <img class="hourly__icon" src="/assets/images/icon-overcast.webp" alt="" width="40" height="40" />
-                  <p class="hourly__time">17 PM</p>
-                </div>
-                <p class="hourly__temp">20&deg;</p>
-              </div>
-              <div class="block hourly__card">
-                <div class="hourly__icon-hour">
-                  <img class="hourly__icon" src="/assets/images/icon-overcast.webp" alt="" width="40" height="40" />
-                  <p class="hourly__time">18 PM</p>
-                </div>
-                <p class="hourly__temp">20&deg;</p>
-              </div>
-              <div class="block hourly__card">
-                <div class="hourly__icon-hour">
-                  <img class="hourly__icon" src="/assets/images/icon-overcast.webp" alt="" width="40" height="40" />
-                  <p class="hourly__time">19 PM</p>
-                </div>
-                <p class="hourly__temp">20&deg;</p>
-              </div>
-              <div class="block hourly__card">
-                <div class="hourly__icon-hour">
-                  <img class="hourly__icon" src="/assets/images/icon-overcast.webp" alt="" width="40" height="40" />
-                  <p class="hourly__time">20 PM</p>
-                </div>
-                <p class="hourly__temp">20&deg;</p>
-              </div>
-              <div class="block hourly__card">
-                <div class="hourly__icon-hour">
-                  <img class="hourly__icon" src="/assets/images/icon-overcast.webp" alt="" width="40" height="40" />
-                  <p class="hourly__time">21 PM</p>
-                </div>
-                <p class="hourly__temp">20&deg;</p>
-              </div>
-              <div class="block hourly__card">
-                <div class="hourly__icon-hour">
-                  <img class="hourly__icon" src="/assets/images/icon-overcast.webp" alt="" width="40" height="40" />
-                  <p class="hourly__time">22 PM</p>
-                </div>
-                <p class="hourly__temp">20&deg;</p>
-              </div>
-              <div class="block hourly__card">
-                <div class="hourly__icon-hour">
-                  <img class="hourly__icon" src="/assets/images/icon-overcast.webp" alt="" width="40" height="40" />
-                  <p class="hourly__time">23 PM</p>
-                </div>
-                <p class="hourly__temp">20&deg;</p>
-              </div>
-            </div>
-          </div>
-        </section>
+          </section>
+        </div>
+      </div>
+      <div class="screen_no-result-found">
+        <p>No search result found!</p>
+      </div>
+      <div class="screen_api-error page-hidden">
+        <img class="api-error__icon" src="/assets/images/icon-error.svg" alt="api-error__icon" />
+        <h1 class="api-error__title">Something went wrong</h1>
+        <p class="api-error__message">We couldn't connect to the server (API error). Please try again in a few moments.</p>
+        <button class="api-error__button">Retry</button>
       </div>
     </main>
   </body>

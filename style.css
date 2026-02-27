@@ -207,6 +207,12 @@
 
   .dropDown {
     color: var(--color-text-light);
+    background-color: var(--color-panel-bg-light);
+    &:hover {
+      cursor: pointer;
+      background-color: var(--color-panel-bg-med);
+      transition: 1ms ease-in-out;
+    }
   }
 
   .page-hidden {
@@ -237,12 +243,12 @@
     .header__dropdown {
       width: 100px;
       font-size: var(--font-size-dropdown);
-      background-color: var(--color-panel-bg-dark);
+
       padding: 10px 10px 10px 30px;
       background-image: url(assets/images/icon-units.svg);
       background-repeat: no-repeat;
       background-position: 8px center;
-      border-radius: 10%;
+      border-radius: 8px;
       border: none;
     }
   }
@@ -478,7 +484,6 @@
       padding: 8px;
       text-align: center;
       font-size: var(--font-size-forecast-dropdown);
-      background-color: var(--color-panel-bg-light);
       border-radius: 8px;
       border: none;
     }

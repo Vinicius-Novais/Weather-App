@@ -73,6 +73,8 @@
     --color-panel-border: var(--c-neutral-600);
     --color-button-bg-hover: var(--c-blue-700);
     --color-button-bg: var(--c-blue-500);
+    --skeleton-base: var(--color-panel-bg-med);
+    --skeleton-highlight: rgba(255, 255, 255, 0.12);
 
     --fs-96: calc(96 / 16 * 1rem);
     --fs-52: calc(52 / 16 * 1rem);
@@ -227,9 +229,6 @@
       justify-content: space-between;
       align-items: center;
       padding-block-start: 16px;
-    }
-
-    .header__homelink {
     }
 
     .header__logo {
@@ -433,6 +432,7 @@
     }
     .daily__day {
       font-size: var(--font-size-forecast-day);
+      color: var(--color-text-light);
     }
     .daily__icon {
       width: 60px;
@@ -443,8 +443,6 @@
       justify-content: space-between;
       width: 100%;
       font-size: var(--font-size-forecast-temp);
-    }
-    .daily__max-temp {
     }
     .daily__min-temp {
       color: var(--color-text-med-light);
@@ -488,9 +486,6 @@
       border: none;
     }
 
-    .hourly__day {
-    }
-
     .hourly__cards {
       display: grid;
       gap: 16px;
@@ -520,7 +515,9 @@
       font-size: var(--font-size-forecast-temp);
     }
   }
+}
 
+@layer states {
   .no_result {
     text-align: center;
     font-size: 25px;
@@ -607,4 +604,43 @@
       }
     }
   }
+
+  .skeleton {
+    .current__condition,
+    .daily__card,
+    .hourly__card {
+      position: relative;
+      color: transparent;
+      background: var(--skeleton-base);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .daily__min-temp {
+      color: transparent;
+    }
+    .daily__icon,
+    .hourly__icon {
+      opacity: 0;
+    }
+
+    .current__condition::after,
+    .daily__card::after,
+    .hourly__card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      transform: translateX(-100%);
+      background: linear-gradient(90deg, transparent, var(--skeleton-highlight), transparent);
+      animation: shimmer 1.4s infinite;
+    }
+
+    @keyframes shimmer {
+      100% {
+        transform: translateX(100%);
+      }
+    }
+  }
+
+  /* hourly__cards || daily__cards ||  current__conditions */
 }

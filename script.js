@@ -6,6 +6,7 @@ const elements = {
 const appState = {
   status: "",
   resultType: "",
+  dataLevel: "",
 };
 const weatherIconMap = [
   { weather: "/assets/images/icon-sunny.webp", codes: [0, 1] },
@@ -27,7 +28,7 @@ async function init() {
     const weatherJson = await fetchWeatherAPI();
     const currentData = weatherJson.current;
 
-    setStatus("success", "normal");
+    setStatus("success", "normal", "partial");
     isDay(currentData);
     setDate(weatherJson);
 
@@ -37,25 +38,25 @@ async function init() {
     document.querySelector(".current__city").textContent = "São Paulo, Brasil";
   } catch (error) {
     console.error(`Erro na API: ${error.message} `);
-    setStatus("apiError", "normal");
+    setStatus("apiError");
   }
 }
 
-function setStatus(newStatus, newResultType) {
-  appState.status = newStatus;
-  appState.resultType = newResultType;
-  // if (newStatus === "success") {
-  //  ?? "normal";
-  // }
+function setStatus(status, resultType, dataLevel) {
+  appState.status = status;
+  appState.resultType = resultType;
+  appState.dataLevel = dataLevel;
 
-  renderScreen(appState.status, appState.resultType);
+  renderScreen(appState);
 }
 
-function renderScreen(state, resultType) {
+function renderScreen(stateObj) {
   console.log(appState);
+
+  const { status, resultType, dataLevel } = stateObj;
+  console.log(`Status: ${status}, ResultType: ${resultType}, DataLevel: ${dataLevel}`);
   const hero = document.querySelector(".hero");
   const dashboard = document.querySelector(".dashboard");
-
   const noResult = document.querySelector(".no_result");
   const apiError = document.querySelector(".api_error");
 
@@ -66,11 +67,11 @@ function renderScreen(state, resultType) {
   noResult.classList.add("page-hidden");
   apiError.classList.add("page-hidden");
 
-  if (state === "loading") {
+  if (status === "loading") {
     dashboard.classList.add("skeleton");
     hero.classList.remove("page-hidden");
     dashboard.classList.remove("page-hidden");
-  } else if (state === "success") {
+  } else if (status === "success") {
     hero.classList.remove("page-hidden");
     dashboard.classList.remove("page-hidden");
 
@@ -78,7 +79,7 @@ function renderScreen(state, resultType) {
       dashboard.classList.add("page-hidden");
       noResult.classList.remove("page-hidden");
     }
-  } else if (state === "apiError") {
+  } else if (status === "apiError") {
     apiError.classList.remove("page-hidden");
   }
 }
@@ -144,15 +145,15 @@ async function loadGeolocation() {
     console.log("API de geolocation", geoJson);
 
     if (geoJson.length === 0) {
-      setStatus("success", "notFound");
+      setStatus("success", "notFound", "none");
       return;
     }
-    setStatus("success", "normal");
+    setStatus("success", "normal", "full");
     console.log(appState);
     extractGeolocationData(geoJson);
   } catch (error) {
     console.error(`Erro na API: ${error.message} `);
-    setStatus("apiError", "normal");
+    setStatus("apiError");
   }
 }
 
@@ -200,9 +201,9 @@ async function loadWeather() {
     setStatus("loading");
     const weatherJson = await fetchWeatherAPI();
     updateWeatherUI(weatherJson);
-    setStatus("success", "normal");
+    setStatus("success", "normal", "full");
   } catch (error) {
-    setStatus("apiError", "normal");
+    setStatus("apiError");
     console.log(appState);
   }
 }

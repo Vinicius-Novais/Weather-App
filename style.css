@@ -642,5 +642,41 @@
     }
   }
 
+  /* .place_holder {
+    .current__condition,
+    .daily__card,
+    .hourly__card {
+      position: relative;
+      color: transparent;
+      background: var(--skeleton-base);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .daily__min-temp {
+      color: transparent;
+    }
+    .daily__icon,
+    .hourly__icon {
+      opacity: 0;
+    }
+
+    .current__condition::after,
+    .daily__card::after,
+    .hourly__card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      transform: translateX(-100%);
+      background: linear-gradient(90deg, transparent, var(--skeleton-highlight), transparent);
+      animation: shimmer 1.4s infinite;
+    }
+
+    @keyframes shimmer {
+      100% {
+        transform: translateX(100%);
+      }
+    }
+  } */
   /* hourly__cards || daily__cards ||  current__conditions */
 }

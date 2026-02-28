@@ -4,8 +4,8 @@ const elements = {
 };
 
 const appState = {
-  status: "succes",
-  resultType: "normal",
+  status: "",
+  resultType: "",
 };
 const weatherIconMap = [
   { weather: "/assets/images/icon-sunny.webp", codes: [0, 1] },
@@ -23,12 +23,13 @@ init();
 
 async function init() {
   try {
+    setStatus("loading");
     const weatherJson = await fetchWeatherAPI();
     const currentData = weatherJson.current;
 
+    setStatus("success", "normal");
     isDay(currentData);
     setDate(weatherJson);
-    setStatus("succes", "normal");
 
     // seta a tempertarura do current
     document.querySelector('[data-condition="temp"]').textContent = round(weatherJson.current.temperature_2m) + "\u00B0";
@@ -42,7 +43,10 @@ async function init() {
 
 function setStatus(newStatus, newResultType) {
   appState.status = newStatus;
-  appState.resultType = newResultType;
+
+  if (newStatus === "success") {
+    appState.resultType = newResultType ?? "normal";
+  }
 
   renderScreen(appState.status, appState.resultType);
 }
@@ -51,13 +55,22 @@ function renderScreen(state, resultType) {
   console.log(appState);
   const hero = document.querySelector(".hero");
   const dashboard = document.querySelector(".dashboard");
+
   const noResult = document.querySelector(".no_result");
   const apiError = document.querySelector(".api_error");
 
-  if (state === "iddle") {
+  dashboard.classList.remove("skeleton");
+
+  hero.classList.add("page-hidden");
+  dashboard.classList.add("page-hidden");
+  noResult.classList.add("page-hidden");
+  apiError.classList.add("page-hidden");
+
+  if (state === "loading") {
+    dashboard.classList.add("skeleton");
     hero.classList.remove("page-hidden");
     dashboard.classList.remove("page-hidden");
-  } else if (state === "succes") {
+  } else if (state === "success") {
     hero.classList.remove("page-hidden");
     dashboard.classList.remove("page-hidden");
 
@@ -70,6 +83,11 @@ function renderScreen(state, resultType) {
   }
 }
 
+function isDay(currentData) {
+  const imgElement = document.querySelector(".current__icon");
+
+  currentData.is_day ? (imgElement.src = "assets/images/sunny.svg") : (imgElement.src = "assets/images/moon-svgrepo-com.svg");
+}
 function setDate(weatherJson) {
   const now = new Date();
   const currentDateElement = document.querySelector(".current__date");
@@ -85,11 +103,9 @@ function setDate(weatherJson) {
   currentDateElement.textContent = formattedDate;
 }
 
-function isDay(currentData) {
-  const imgElement = document.querySelector(".current__icon");
-
-  currentData.is_day ? (imgElement.src = "assets/images/sunny.svg") : (imgElement.src = "assets/images/moon-svgrepo-com.svg");
-}
+document.querySelector(".api_error__button").addEventListener("click", () => {
+  window.location.reload();
+});
 
 // ============================= GEOLOCOCATION =======================================
 
@@ -118,17 +134,20 @@ async function fetchGeolocationAPI() {
 
 async function loadGeolocation() {
   try {
+    setStatus("loading");
     const geoJson = await fetchGeolocationAPI();
     console.log("API de geolocation", geoJson);
 
     if (geoJson.length === 0) {
-      setStatus("succes", "notFound");
+      setStatus("success", "notFound");
       return;
     }
-
+    setStatus("success", "normal");
+    console.log(appState);
     extractGeolocationData(geoJson);
   } catch (error) {
     console.error(`Erro na API: ${error.message} `);
+    setStatus("apiError", "normal");
   }
 }
 
@@ -173,12 +192,13 @@ async function fetchWeatherAPI() {
 
 async function loadWeather() {
   try {
+    setStatus("loading");
     const weatherJson = await fetchWeatherAPI();
     updateWeatherUI(weatherJson);
     setStatus("succes", "normal");
   } catch (error) {
-    console.log(error);
     setStatus("apiError", "normal");
+    console.log(appState);
   }
 }
 
@@ -424,3 +444,5 @@ function updateHourlySectionByDay(weeklyHourlyData) {
     }
   }
 }
+
+// window.setStatus = setStatus;

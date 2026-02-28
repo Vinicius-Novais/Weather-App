@@ -43,10 +43,10 @@ async function init() {
 
 function setStatus(newStatus, newResultType) {
   appState.status = newStatus;
-
-  if (newStatus === "success") {
-    appState.resultType = newResultType ?? "normal";
-  }
+  appState.resultType = newResultType;
+  // if (newStatus === "success") {
+  //  ?? "normal";
+  // }
 
   renderScreen(appState.status, appState.resultType);
 }
@@ -110,6 +110,11 @@ document.querySelector(".api_error__button").addEventListener("click", () => {
 // ============================= GEOLOCOCATION =======================================
 
 elements.heroButton.addEventListener("click", loadGeolocation);
+elements.heroTextBox.addEventListener("keyup", (e) => {
+  if (e.key === "Enter") {
+    loadGeolocation();
+  }
+});
 
 function buildGeolocationURL() {
   const params = new URLSearchParams({
@@ -195,7 +200,7 @@ async function loadWeather() {
     setStatus("loading");
     const weatherJson = await fetchWeatherAPI();
     updateWeatherUI(weatherJson);
-    setStatus("succes", "normal");
+    setStatus("success", "normal");
   } catch (error) {
     setStatus("apiError", "normal");
     console.log(appState);

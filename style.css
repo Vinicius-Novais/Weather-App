@@ -5,7 +5,7 @@
     font-family: "DM Sans";
     font-style: normal;
     font-weight: 300;
-    src: url("/assets/fonts/dm-sans-v17-latin-300.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+    src: url("./assets/fonts/dm-sans-v17-latin-300.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
   }
   /* dm-sans-500 - latin */
   @font-face {
@@ -13,7 +13,7 @@
     font-family: "DM Sans";
     font-style: normal;
     font-weight: 500;
-    src: url("/assets/fonts/dm-sans-v17-latin-500.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+    src: url("./assets/fonts/dm-sans-v17-latin-500.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
   }
   /* dm-sans-600 - latin */
   @font-face {
@@ -21,7 +21,7 @@
     font-family: "DM Sans";
     font-style: normal;
     font-weight: 600;
-    src: url("/assets/fonts/dm-sans-v17-latin-600.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+    src: url("./assets/fonts/dm-sans-v17-latin-600.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
   }
   /* dm-sans-600italic - latin */
   @font-face {
@@ -29,7 +29,7 @@
     font-family: "DM Sans";
     font-style: italic;
     font-weight: 600;
-    src: url("/assets/fonts/dm-sans-v17-latin-600italic.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+    src: url("./assets/fonts/dm-sans-v17-latin-600italic.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
   }
   /* dm-sans-700 - latin */
   @font-face {
@@ -37,7 +37,7 @@
     font-family: "DM Sans";
     font-style: normal;
     font-weight: 700;
-    src: url("/assets/fonts/dm-sans-v17-latin-700.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+    src: url("./assets/fonts/dm-sans-v17-latin-700.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
   }
 
   /* bricolage-grotesque-700 - latin */
@@ -46,7 +46,7 @@
     font-family: "Bricolage Grotesque";
     font-style: normal;
     font-weight: 700;
-    src: url("/assets/fonts/bricolage-grotesque-v9-latin-700.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+    src: url("./assets/fonts/bricolage-grotesque-v9-latin-700.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
   }
 
   :root {
@@ -244,7 +244,7 @@
       font-size: var(--font-size-dropdown);
 
       padding: 10px 10px 10px 30px;
-      background-image: url(assets/images/icon-units.svg);
+      background-image: url(./assets/images/icon-units.svg);
       background-repeat: no-repeat;
       background-position: 8px center;
       border-radius: 8px;
@@ -292,7 +292,7 @@
       font-size: var(--font-size-search);
       padding: 16px 20px 16px 60px;
       border-radius: 12px;
-      background-image: url("/assets/images/icon-search.svg");
+      background-image: url("./assets/images/icon-search.svg");
       background-repeat: no-repeat;
       background-position: 24px center;
 
@@ -323,7 +323,7 @@
     .current__weather {
       display: flex;
       flex-direction: column;
-      background-image: url("/assets/images/bg-today-small.svg");
+      background-image: url("./assets/images/bg-today-small.svg");
       background-repeat: no-repeat;
       background-color: var(--c-blue-700);
       background-size: cover;
@@ -336,7 +336,7 @@
       overflow: clip;
 
       @media (width >= calc(700/16 *1rem)) {
-        background-image: url("/assets/images/bg-today-large.svg");
+        background-image: url("./assets/images/bg-today-large.svg");
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
@@ -582,7 +582,7 @@
       padding-block: 9px;
       border-radius: 8px;
       color: var(--color-text-light);
-      background-image: url(assets/images/icon-retry.svg);
+      background-image: url(./assets/images/icon-retry.svg);
       background-size: auto;
       background-repeat: no-repeat;
       background-position: 10px center;

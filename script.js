@@ -9,17 +9,18 @@ const appState = {
   dataLevel: "",
 };
 const weatherIconMap = [
-  { weather: "/assets/images/icon-sunny.webp", codes: [0, 1] },
-  { weather: "/assets/images/icon-partly-cloudy.webp", codes: [2] },
-  { weather: "/assets/images/icon-overcast.webp", codes: [3] },
-  { weather: "/assets/images/icon-fog.webp", codes: [45, 48] },
-  { weather: "/assets/images/icon-drizzle.webp", codes: [51, 53, 55] },
-  { weather: "/assets/images/icon-rain.webp", codes: [61, 63, 65, 66, 67, 80, 81, 82] },
-  { weather: "/assets/images/icon-snow.webp", codes: [71, 73, 75, 77, 85, 86] },
-  { weather: "/assets/images/icon-storm.webp", codes: [95, 96, 99] },
+  { weather: "assets/images/icon-sunny.webp", codes: [0, 1] },
+  { weather: "assets/images/icon-partly-cloudy.webp", codes: [2] },
+  { weather: "assets/images/icon-overcast.webp", codes: [3] },
+  { weather: "assets/images/icon-fog.webp", codes: [45, 48] },
+  { weather: "assets/images/icon-drizzle.webp", codes: [51, 53, 55] },
+  { weather: "assets/images/icon-rain.webp", codes: [61, 63, 65, 66, 67, 80, 81, 82] },
+  { weather: "assets/images/icon-snow.webp", codes: [71, 73, 75, 77, 85, 86] },
+  { weather: "assets/images/icon-storm.webp", codes: [95, 96, 99] },
 ];
 const coordinates = [-23.5506507, -46.6333824];
 const round = (value) => Math.round(value);
+
 init();
 
 async function init() {

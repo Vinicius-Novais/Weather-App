@@ -51,7 +51,7 @@ function setStatus(status, resultType, dataLevel) {
 }
 
 function renderScreen(stateObj) {
-  console.log(appState);
+  console.log(stateObj);
 
   const { status, resultType, dataLevel } = stateObj;
   console.log(`Status: ${status}, ResultType: ${resultType}, DataLevel: ${dataLevel}`);
@@ -66,6 +66,7 @@ function renderScreen(stateObj) {
   dashboard.classList.add("page-hidden");
   noResult.classList.add("page-hidden");
   apiError.classList.add("page-hidden");
+  dashboard.classList.remove("place_holder");
 
   if (status === "loading") {
     dashboard.classList.add("skeleton");
@@ -74,6 +75,10 @@ function renderScreen(stateObj) {
   } else if (status === "success") {
     hero.classList.remove("page-hidden");
     dashboard.classList.remove("page-hidden");
+
+    if (dataLevel === "partial") {
+      dashboard.classList.add("place_holder");
+    }
 
     if (resultType === "notFound") {
       dashboard.classList.add("page-hidden");

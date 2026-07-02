@@ -52,10 +52,8 @@ function setStatus(status, resultType, dataLevel) {
 }
 
 function renderScreen(stateObj) {
-  console.log(stateObj);
-
   const { status, resultType, dataLevel } = stateObj;
-  console.log(`Status: ${status}, ResultType: ${resultType}, DataLevel: ${dataLevel}`);
+
   const hero = document.querySelector(".hero");
   const dashboard = document.querySelector(".dashboard");
   const noResult = document.querySelector(".no_result");
@@ -148,14 +146,13 @@ async function loadGeolocation() {
   try {
     setStatus("loading");
     const geoJson = await fetchGeolocationAPI();
-    console.log("API de geolocation", geoJson);
 
     if (geoJson.length === 0) {
       setStatus("success", "notFound", "none");
       return;
     }
     setStatus("success", "normal", "full");
-    console.log(appState);
+
     extractGeolocationData(geoJson);
   } catch (error) {
     console.error(`Erro na API: ${error.message} `);
@@ -166,7 +163,6 @@ async function loadGeolocation() {
 function extractGeolocationData(rawData) {
   const lat = rawData[0].lat;
   const lon = rawData[0].lon;
-  const place = rawData[0].name;
 
   coordinates[0] = lat;
   coordinates[1] = lon;
@@ -187,8 +183,6 @@ function buildWeatherURL(lat, lon) {
     timezone: "auto",
   });
 
-  console.log(`Retornando URL com a lat e lon vindas da API de Geolocation:
-https://api.open-meteo.com/v1/forecast?${params}`);
   return `https://api.open-meteo.com/v1/forecast?${params}`;
 }
 
@@ -210,7 +204,6 @@ async function loadWeather() {
     setStatus("success", "normal", "full");
   } catch (error) {
     setStatus("apiError");
-    console.log(appState);
   }
 }
 
@@ -385,8 +378,6 @@ function populateHourlyData(rawData, weeklyHourlyData) {
     // adicionando 24 posições (0-23)
     dayStartIndex = dayStartIndex + HOURS_PER_DAY;
   }
-
-  console.log("Array populado já com as divisões de dias: ", weeklyHourlyData);
 }
 
 function renderTodayHourlySection(weeklyHourlyData) {
@@ -416,8 +407,6 @@ const select = document.getElementById("ddlDays");
 select.addEventListener("change", () => updateHourlySectionByDay(weeklyHourlyData));
 
 function updateHourlySectionByDay(weeklyHourlyData) {
-  console.log(weeklyHourlyData);
-
   const select = document.getElementById("ddlDays");
   const hourlyTemp = document.querySelectorAll(".hourly__temp");
 
@@ -428,10 +417,7 @@ function updateHourlySectionByDay(weeklyHourlyData) {
 
   for (let i = 0; i < 7; i++) {
     if (select.value === weeklyHourlyData[i].day) {
-      console.log("valor selecionado", select.value);
-      console.log("dia no array", weeklyHourlyData[i].day);
       for (let j = 0; j < 24; j++) {
-        console.log(round(weeklyHourlyData[i].temp[j]) + "\u00B0");
         hourlyTemp[j].textContent = round(weeklyHourlyData[i].temp[j]) + "\u00B0";
       }
     }
@@ -441,7 +427,6 @@ function updateHourlySectionByDay(weeklyHourlyData) {
   function getSelectedIndex() {
     for (let i = 0; i < weeklyHourlyData.length; i++) {
       if (select.value === weeklyHourlyData[i].day) {
-        console.log("dia selecioando " + i);
         return i;
       }
     }
@@ -456,5 +441,3 @@ function updateHourlySectionByDay(weeklyHourlyData) {
     }
   }
 }
-
-// window.setStatus = setStatus;

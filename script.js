@@ -143,6 +143,8 @@ async function fetchGeolocationAPI() {
 }
 
 async function loadGeolocation() {
+  if (!elements.heroTextBox.value.trim()) return;
+
   try {
     setStatus("loading");
     const geoJson = await fetchGeolocationAPI();
@@ -154,9 +156,8 @@ async function loadGeolocation() {
     setStatus("success", "normal", "full");
 
     extractGeolocationData(geoJson);
-  } catch (error) {
-    console.error(`Erro na API: ${error.message} `);
-    setStatus("apiError");
+  } catch (err) {
+    setStatus(`apiError`);
   }
 }
 
@@ -203,11 +204,12 @@ async function loadWeather() {
     updateWeatherUI(weatherJson);
     setStatus("success", "normal", "full");
   } catch (error) {
-    setStatus("apiError");
+    setStatus(`apiError ${error.message}`);
   }
 }
 
 function getLocationName(rawData) {
+  console.log(rawData);
   const addressData = rawData[0].address;
 
   const addressType = rawData[0].addresstype;
@@ -217,10 +219,9 @@ function getLocationName(rawData) {
 
   const locationElement = document.querySelector(".current__city");
 
-  locationElement.textContent = addressType === "state" ? `${place} , ${country}` : `${place} , ${state}`;
-
   if (!Object.hasOwn(addressData, "state")) {
-    locationElement.textContent = `${place}, ${country}`;
+    console.log(place);
+    locationElement.textContent = country === place ? `${country}` : `${place + ", " + country}`;
   } else if (addressType === "state") {
     locationElement.textContent = `${place}, ${country}`;
   } else {
@@ -432,9 +433,11 @@ function updateHourlySectionByDay(weeklyHourlyData) {
     }
   }
 
+  const selectedIndex = getSelectedIndex();
+
   for (let i = 0; i < 24; i++) {
     for (let j = 0; j < weatherIconMap.length; j++) {
-      if (weatherIconMap[j].codes.includes(weeklyHourlyData[getSelectedIndex()].code[i])) {
+      if (weatherIconMap[j].codes.includes(weeklyHourlyData[selectedIndex].code[i])) {
         hourlyIcon[i].src = weatherIconMap[j].weather;
         break;
       }

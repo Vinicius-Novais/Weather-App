@@ -55,7 +55,7 @@ Abra o `index.html` no navegador ou use a extensão **Live Server** do VS Code.
 - Encadear duas APIs: usar o resultado da geocodificação como entrada da API de clima
 - Gerenciar estados de interface (loading, sucesso, vazio, erro) de forma centralizada
 - Trabalhar com fusos horários usando Intl.DateTimeFormat
-- Planejar a arquitetura antes de codar, com diagramas no Excalidraw
+- Skeleton Loading
 
 ## 👤 Autor
 

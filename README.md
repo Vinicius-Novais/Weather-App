@@ -29,7 +29,7 @@ Aplicação de previsão do tempo com busca de cidades do mundo todo, construíd
 - **[Open-Meteo API](https://open-meteo.com/)** — dados meteorológicos (sem necessidade de chave)
 - **[Nominatim / OpenStreetMap](https://nominatim.org/)** — geocodificação: converte o nome da cidade em coordenadas
 - **ESLint** — padronização do código
-- **Excalidraw** — planejamento dos estados da interface, fluxo de dados e planejamento de refatoração (diagramas na pasta [`excalidraw/`](./excalidraw))
+- **Excalidraw** — planejamento dos estados da interface, fluxo de dados e planejamento de refatoração (diagramas na pasta [`excalidraw/`](docs/excalidraw))
 
 ## 🧠 Como funciona
 

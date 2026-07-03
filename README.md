@@ -4,8 +4,8 @@ Aplicação de previsão do tempo com busca de cidades do mundo todo, construíd
 
 🔗 **[Ver o projeto no ar](https://vinicius-novais.github.io/Weather-App/)**
 
-![Screenshot da versão desktop](./desktop.png)
-![Screenshot da versão mobile](./mobile.png)
+![Screenshot da versão desktop](docs/desktop.png)
+![Screenshot da versão mobile](docs/mobile.png)
 
 ## ✨ Funcionalidades
 

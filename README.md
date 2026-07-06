@@ -14,7 +14,7 @@ Aplicação de previsão do tempo com busca de cidades do mundo todo, construíd
 
 ## ✨ Funcionalidades
 
-- Busca de qualquer cidade do mundo
+- Busca de qualquer cidade do mundo (com Enter ou clicando no botão de busca)
 - Condições atuais: temperatura, sensação térmica, umidade, vento e precipitação
 - Previsão diária para os próximos 7 dias, com ícones por condição do tempo
 - Previsão hora a hora (24h) com seletor para navegar entre os dias da semana

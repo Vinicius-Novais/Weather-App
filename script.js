@@ -91,7 +91,7 @@ function renderScreen(stateObj) {
 function isDay(currentData) {
   const imgElement = document.querySelector(".current__icon");
 
-  currentData.is_day ? (imgElement.src = "./assets/images/sunny.svg") : (imgElement.src = "./assets/images/moon-svgrepo-com.svg");
+  currentData.is_day ? (imgElement.src = "assets/images/sunny.svg") : (imgElement.src = "assets/images/moon-svgrepo-com.svg");
 }
 function setDate(weatherJson) {
   const now = new Date();

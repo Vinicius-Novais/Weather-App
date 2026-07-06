@@ -153,6 +153,7 @@ async function loadGeolocation() {
       setStatus("success", "notFound", "none");
       return;
     }
+    // geolocation ok
     setStatus("success", "normal", "full");
 
     extractGeolocationData(geoJson);
@@ -203,13 +204,12 @@ async function loadWeather() {
     const weatherJson = await fetchWeatherAPI();
     updateWeatherUI(weatherJson);
     setStatus("success", "normal", "full");
-  } catch (error) {
-    setStatus(`apiError ${error.message}`);
+  } catch (err) {
+    setStatus(`apiError`);
   }
 }
 
 function getLocationName(rawData) {
-  console.log(rawData);
   const addressData = rawData[0].address;
 
   const addressType = rawData[0].addresstype;
@@ -220,7 +220,6 @@ function getLocationName(rawData) {
   const locationElement = document.querySelector(".current__city");
 
   if (!Object.hasOwn(addressData, "state")) {
-    console.log(place);
     locationElement.textContent = country === place ? `${country}` : `${place + ", " + country}`;
   } else if (addressType === "state") {
     locationElement.textContent = `${place}, ${country}`;
